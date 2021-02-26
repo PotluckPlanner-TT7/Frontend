@@ -1,3 +1,5 @@
+import {Route, Switch} from 'react-router-dom';
+
 import Component from "./components/templateComponent/Component";
 
 function App() {

@@ -2,3 +2,7 @@ To create a new component make a copy of the templateComponent folder which cont
 Rename the folder
 Rename both files
 Change the values that are marked in comments
+
+Feel free to not use this!
+Feel free to install other package if you want to use another styling library.
+Be happy!

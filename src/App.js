@@ -1,11 +1,10 @@
-import {Route, Switch} from 'react-router-dom';
-
-import Component from "./components/templateComponent/Component";
+import { Route, Switch } from "react-router-dom";
+import SignUp from "./components/SignUp/SignUp";
 
 function App() {
   return (
     <div className="App">
-      <Component />
+      <SignUp />
     </div>
   );
 }

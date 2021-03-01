@@ -1,9 +1,22 @@
 import React from "react";
 
 function PotLuckCard(props) {
+  const {potluck} = props;
+
   return (
     <div>
-      <h1>potluck1</h1>
+      <ul>
+        <li>{potluck.title}</li>
+        <li>{potluck.description}</li>
+        <li>{potluck.date}</li>
+        <li>{potluck.creator}</li>
+        <li>{potluck.location}</li>
+        <ul>
+          {potluck.guests.map(guest => {
+            return (<li>{guest}</li>)
+          })}
+        </ul>
+      </ul>
     </div>
   );
 }

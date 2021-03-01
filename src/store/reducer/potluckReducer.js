@@ -1,11 +1,21 @@
 import {
   LOAD_POTLUCKS,
-  SET_POTLOCKS_SUCCESS,
+  SET_POTLUCKS_SUCCESS,
   SET_ERROR,
 } from "./../actions/potluckAction";
 
 const initialValue = {
-  potluckData: "",
+  potluckData: [{
+    id: Date.now(),
+    title: "something",
+    date: "",
+    location: "place",
+    description: "some place somewhere",
+    guests: ["me", "myself", "I"],
+    creator: " ",
+    itemsRequested: []
+  }],
+
   error: "",
   loadingPotluckData: false,
 };
@@ -17,7 +27,7 @@ export const potluckReducer = (state = initialValue, action) => {
         ...state,
         loadingPotluckData: true,
       };
-    case SET_POTLOCKS_SUCCESS:
+    case SET_POTLUCKS_SUCCESS:
       return {
         ...state,
         potluckData: action.payload,

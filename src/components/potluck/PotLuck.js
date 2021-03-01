@@ -1,10 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import {
-  startLogin,
-  startSuccess,
-  startFail,
-} from "../../store/actions/loginActions";
+getPotluckData
+} from "../../store/actions/potluckAction";
 
 import PotLuckCard from "./PotLuckCard";
 
@@ -12,13 +10,13 @@ import PotLuckStyle from "./PotLuckStyle";
 //      change^               change^
 
 const PotLuck = (props) => {
-  console.log(props);
+  const { potluckData } = props;
   return (
     <PotLuckStyle>
-      test from Component.js
-      {/* {props.potlucks.map((pot) => {
-        <PotLuckCard key={pot.id} potluck={pot} />;
-      })} */}
+
+      {potluckData.map((pot) => {
+        return <PotLuckCard key={pot.id} potluck={pot} />;
+      })} 
     </PotLuckStyle>
   );
 };
@@ -32,6 +30,6 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, {
-  // getPotluckData,
+  getPotluckData,
 })(PotLuck);
 //              change^^

@@ -23,10 +23,13 @@ const validationSchema = Yup.object({
 
 // React Component!
 const LogIn = (props) => {
-  console.log(props);
-  const { setUserData, history } = props;
+  const { setUserData } = props;
   const [User, setUser] = useState(initialValues);
   const [disabled, setDisabled] = useState(true);
+
+  if (props.isLoggedIn) {
+    props.history.push("/home");
+  }
 
   // Sets button to working or disabled based on inputs
   const FormikValueGet = () => {
@@ -49,11 +52,11 @@ const LogIn = (props) => {
         <Formik
           initialValues={initialValues}
           onSubmit={(values, { resetForm }) => {
+            // history.push("/home");
             setUser(values);
             console.log(values);
             setUserData(User);
-            history.push("/home");
-            // resetForm();
+            resetForm();
           }}
           validationSchema={validationSchema}
         >
@@ -79,4 +82,10 @@ const LogIn = (props) => {
   );
 };
 
-export default connect(null, { setUserData })(LogIn);
+const mapStateToProps = (state) => {
+  return {
+    isLoggedIn: state.login.isLoggedIn,
+  };
+};
+
+export default connect(mapStateToProps, { setUserData })(LogIn);

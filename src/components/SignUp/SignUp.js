@@ -2,17 +2,34 @@ import React from "react";
 import SignUpDiv from "./SignUpStyles";
 import { useState, useEffect } from "react";
 import * as Yup from "yup";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { useFormikContext, Formik, Form, Field, ErrorMessage } from "formik";
 
 // Initial Sign Up form values
-const initialValues = { name: "", email: "", password: "", birthday: "" };
+const initialValues = {
+  name: "",
+  username: "",
+  email: "",
+  password: "",
+  birthday: "",
+};
 
 // Yup validation schema
 const validationSchema = Yup.object({
-  name: Yup.string().required("Required!"),
-  email: Yup.string().email("Invalid email format").required("Required!"),
+  name: Yup.string().trim().required("Name is required"),
+  username: Yup.string()
+    .trim()
+    .matches(
+      /^[a-z\s]+$/g,
+      "Only lowercase letters and numbers are allowed in usernames"
+    )
+    .required("Username is required"),
+  email: Yup.string()
+    .email("Invalid email format")
+    .trim()
+    .required("email is required"),
   password: Yup.string()
     .required()
+    .trim()
     .min(6, "Passsword must be at least 6 characters"),
   birthday: Yup.string(),
 });
@@ -20,7 +37,7 @@ const validationSchema = Yup.object({
 // React Component!
 const SignUp = (props) => {
   const [newUser, setNewUser] = useState(initialValues);
-  const [disabled, setDisabled] = useState(false);
+  const [disabled, setDisabled] = useState(true);
 
   // Where form data gets pushed on submit button click
   const onSubmit = (values) => {
@@ -28,19 +45,15 @@ const SignUp = (props) => {
     console.log(values);
   };
 
-  // Formik function doing a lot of form work
-  // const formik = useFormik({
-  //   initialValues,
-  //   onSubmit,
-  //   validationSchema,
-  // });
-
   // Sets button to working or disabled based on inputs
-  // useEffect(() => {
-  //   validationSchema
-  //     .isValid(formik.values)
-  //     .then((valid) => setDisabled(!valid));
-  // }, [formik.values]);
+  const FormikValueGet = () => {
+    const { values } = useFormikContext();
+    console.log(values);
+    useEffect(() => {
+      validationSchema.isValid(values).then((valid) => setDisabled(!valid));
+    }, [values]);
+    return null;
+  };
 
   // Return main sign up form component
   return (
@@ -61,15 +74,25 @@ const SignUp = (props) => {
             <Field type="text" name="name" id="name" placeholder="Name" />
             <ErrorMessage name="name" />
 
-            <Field type="text" name="email" id="email" placeholder="email" />
+            <Field
+              type="text"
+              name="username"
+              id="username"
+              placeholder="Username"
+              // pattern="^[a-z0-9_-]{3,16}$"
+            />
+            <ErrorMessage name="username" />
+
+            <Field type="email" name="email" id="email" placeholder="email" />
             <ErrorMessage name="email" />
 
             <Field
-              type="text"
+              type="date"
               name="birthday"
               id="birthday"
               placeholder="Birthday: MM/DD/YYYY"
             />
+            <label htmlFor="birthday"> Birthday </label>
             <ErrorMessage name="birthday" />
 
             <Field
@@ -80,7 +103,10 @@ const SignUp = (props) => {
             />
             <ErrorMessage name="password" />
 
-            <button type="submit">Submit</button>
+            <button type="submit" disabled={disabled}>
+              Submit
+            </button>
+            <FormikValueGet />
           </Form>
         </Formik>
       </div>

@@ -44,7 +44,7 @@ const LogInDiv = styled.div`
   }
 
   button {
-    padding: 0.5rem;
+    padding: 0.3rem;
     margin: 1rem;
     font-family: "Permanent Marker";
     border-radius: 10%;

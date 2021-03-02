@@ -17,7 +17,7 @@ const validationSchema = Yup.object({
 
 // React Component!
 const LogIn = (props) => {
-  const [User, setUser] = useState(initialValues);
+  const [user, setUser] = useState(initialValues);
   const [disabled, setDisabled] = useState(true);
 
   // Where form data gets pushed on submit button click

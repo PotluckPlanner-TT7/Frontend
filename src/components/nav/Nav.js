@@ -5,8 +5,7 @@ import { signout } from "../../store/actions/loginActions";
 
 import NavStyle from "./NavStyle";
 
-const Nav = ({signout, dispatch}) => {
-
+const Nav = ({ signout, dispatch }) => {
   const signoutHandler = (e) => {
     localStorage.removeItem("token");
     localStorage.removeItem("userData"); //remove any user data we store in localStorage to persist through refreshing
@@ -17,7 +16,8 @@ const Nav = ({signout, dispatch}) => {
 
   const NavItems = token ? (
     <NavStyle>
-      <NavLink to="/dashboard">Dashboard</NavLink>
+      <NavLink to="/home">Home</NavLink>
+      <NavLink to="/my-potlucks">My Potlucks</NavLink>
       <NavLink to="/create-potluck">Create Pockluck</NavLink>
       <NavLink to="/" onClick={signoutHandler}>
         Signout
@@ -25,7 +25,7 @@ const Nav = ({signout, dispatch}) => {
     </NavStyle>
   ) : (
     <NavStyle>
-      <NavLink to="/">Home</NavLink>,<NavLink to="/sign-up">Sign Up</NavLink>
+      <NavLink to="/sign-up">Sign Up</NavLink>
       <NavLink to="/login">Login</NavLink>
       <NavLink to="/potlucks">Potlucks</NavLink>
     </NavStyle>
@@ -36,7 +36,8 @@ const Nav = ({signout, dispatch}) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    signout, dispatch
+    signout,
+    dispatch,
   };
 };
 

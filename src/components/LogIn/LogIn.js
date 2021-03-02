@@ -20,8 +20,10 @@ const LogIn = (props) => {
   const [User, setUser] = useState(initialValues);
   const [disabled, setDisabled] = useState(true);
 
+  // Where form data gets pushed on submit button click
   const onSubmit = (values) => {
     setUser(values);
+    console.log(values);
   };
 
   // Formik function doing a lot of form work
@@ -56,7 +58,6 @@ const LogIn = (props) => {
           {formik.errors.email && formik.touched.email ? (
             <span className="check"> {formik.errors.email} </span>
           ) : null}
-
           <div className="entry">
             <input
               type="password"
@@ -71,10 +72,9 @@ const LogIn = (props) => {
           ) : null}
 
           <button type="submit" disabled={disabled}>
-            {" "}
             Submit{" "}
           </button>
-          {disabled ? (
+          {formik.touched.email && formik.touched.name && disabled ? (
             <span className="check">
               {" "}
               *please check all fields are filled out{" "}

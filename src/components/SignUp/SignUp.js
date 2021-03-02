@@ -106,7 +106,7 @@ const SignUp = (props) => {
             {" "}
             Submit{" "}
           </button>
-          {disabled ? (
+          {formik.touched.email && formik.touched.name && disabled ? (
             <span className="check">
               {" "}
               *please check all fields are filled out{" "}

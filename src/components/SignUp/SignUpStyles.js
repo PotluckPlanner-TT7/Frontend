@@ -49,7 +49,7 @@ const SignUpDiv = styled.div`
     font-family: "Permanent Marker";
     border-radius: 10%;
     font-size: 1.5rem;
-    background-color: #359ccc;
+    background-color: ;
     margin-left: 1rem;
     :hover {
       background-color: white;

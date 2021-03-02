@@ -1,12 +1,15 @@
 import { Route, Switch } from "react-router-dom";
+import SignUp from "./components/SignUp/SignUp";
+import LogIn from "./components/LogIn/LogIn";
 import Nav from "./components/nav/Nav";
 import PotLuck from "./components/potluck/PotLuck";
-
 import Component from "./components/templateComponent/Component";
 
 function App() {
   return (
     <div className="App">
+      <SignUp />
+      <LogIn />
       <Nav />
       <Switch>
         <Route path="/potlucks" component={PotLuck} />

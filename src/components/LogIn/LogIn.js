@@ -31,12 +31,16 @@ const LogIn = (props) => {
   // Sets button to working or disabled based on inputs
   const FormikValueGet = () => {
     const { values } = useFormikContext();
+    console.log(values);
     useEffect(() => {
       validationSchema.isValid(values).then((valid) => setDisabled(!valid));
     }, [values]);
     return null;
   };
-
+  const onSubmitHandle = (e) => {
+    e.preventDefault();
+    console.log("hello");
+  };
   // Return main LogIn form component
   return (
     <LogInDiv>
@@ -49,11 +53,11 @@ const LogIn = (props) => {
             console.log(values);
             setUserData(User);
             history.push("/home");
-            resetForm();
+            // resetForm();
           }}
           validationSchema={validationSchema}
         >
-          <Form>
+          <Form onSubmit={onSubmitHandle}>
             <Field type="email" name="email" id="email" placeholder="email" />
             <ErrorMessage name="email" />
             <Field

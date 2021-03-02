@@ -8,6 +8,8 @@ const initialValue = {
 };
 
 export const loginReducer = (state = initialValue, action) => {
+  console.log(action)
+  
   switch (action.type) {
     case LOG_IN_START:
       return {

@@ -1,34 +1,43 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
+import { signout } from "../../store/actions/loginActions";
 
 import NavStyle from "./NavStyle";
 
+const Nav = ({signout, dispatch}) => {
 
-const Nav = (props) => {
+  const signoutHandler = (e) => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userData"); //remove any user data we store in localStorage to persist through refreshing
+    dispatch(signout());
+  };
+
   const token = localStorage.getItem("token");
 
-  //extra safe or stupid to to check both localStorage and redux? If there are bugs, try removing one.
-  const NavItems = props.loggedIn && token
-    ? [
-        <NavLink to="/dashboard">Dashboard</NavLink>,
-        <NavLink to="/create-potluck">Create Pockluck</NavLink>,
-        <NavLink to="/">Signout</NavLink>,
-      ]
-    : [
-        <NavLink to="/">Home</NavLink>,
-        <NavLink to="/sign-up">Sign Up</NavLink>,
-        <NavLink to="/login">Login</NavLink>,
-        <NavLink to="/potlucks">Potlucks</NavLink>,
-      ];
+  const NavItems = token ? (
+    <NavStyle>
+      <NavLink to="/dashboard">Dashboard</NavLink>
+      <NavLink to="/create-potluck">Create Pockluck</NavLink>
+      <NavLink to="/" onClick={signoutHandler}>
+        Signout
+      </NavLink>
+    </NavStyle>
+  ) : (
+    <NavStyle>
+      <NavLink to="/">Home</NavLink>,<NavLink to="/sign-up">Sign Up</NavLink>
+      <NavLink to="/login">Login</NavLink>
+      <NavLink to="/potlucks">Potlucks</NavLink>
+    </NavStyle>
+  );
 
-  return <NavStyle>{NavItems}</NavStyle>;
+  return NavItems;
 };
 
-const mapStateToProps = (state) => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    loggedIn: state.login.isLoggedIn,
+    signout, dispatch
   };
 };
 
-export default connect(mapStateToProps)(Nav);
+export default connect(null, mapDispatchToProps)(Nav);

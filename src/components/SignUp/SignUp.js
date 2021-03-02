@@ -2,7 +2,7 @@ import React from "react";
 import SignUpDiv from "./SignUpStyles";
 import { useState, useEffect } from "react";
 import * as Yup from "yup";
-import { useFormik } from "formik";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 
 // Initial Sign Up form values
 const initialValues = { name: "", email: "", password: "", birthday: "" };
@@ -20,7 +20,7 @@ const validationSchema = Yup.object({
 // React Component!
 const SignUp = (props) => {
   const [newUser, setNewUser] = useState(initialValues);
-  const [disabled, setDisabled] = useState(true);
+  const [disabled, setDisabled] = useState(false);
 
   // Where form data gets pushed on submit button click
   const onSubmit = (values) => {
@@ -29,92 +29,60 @@ const SignUp = (props) => {
   };
 
   // Formik function doing a lot of form work
-  const formik = useFormik({
-    initialValues,
-    onSubmit,
-    validationSchema,
-  });
+  // const formik = useFormik({
+  //   initialValues,
+  //   onSubmit,
+  //   validationSchema,
+  // });
 
   // Sets button to working or disabled based on inputs
-  useEffect(() => {
-    validationSchema
-      .isValid(formik.values)
-      .then((valid) => setDisabled(!valid));
-  }, [formik.values]);
+  // useEffect(() => {
+  //   validationSchema
+  //     .isValid(formik.values)
+  //     .then((valid) => setDisabled(!valid));
+  // }, [formik.values]);
 
   // Return main sign up form component
   return (
     <SignUpDiv>
       <h1> Sign Up</h1>
       <div className="formCont">
-        <form onSubmit={formik.handleSubmit}>
-          <div className="entry">
-            <input
-              type="text"
-              name="name"
-              //
-              id="name"
-              placeholder="Name"
-              // Add value property and onchange property
-              {...formik.getFieldProps("name")}
-            />
-          </div>
-          {formik.errors.name && formik.touched.name ? (
-            <span className="check"> {formik.errors.name} </span>
-          ) : null}
+        <Formik
+          initialValues={initialValues}
+          onSubmit={(values, { resetForm }) => {
+            setNewUser(values);
+            console.log(values);
+            resetForm();
+          }}
+          validationSchema={validationSchema}
+        >
+          {/* onSubmit={formik.handleSubmit} */}
+          <Form>
+            <Field type="text" name="name" id="name" placeholder="Name" />
+            <ErrorMessage name="name" />
 
-          <div className="entry">
-            <input
-              type="text"
-              name="email"
-              id="email"
-              placeholder="email"
-              {...formik.getFieldProps("email")}
-            />
-          </div>
-          {formik.errors.email && formik.touched.email ? (
-            <span className="check"> {formik.errors.email} </span>
-          ) : null}
+            <Field type="text" name="email" id="email" placeholder="email" />
+            <ErrorMessage name="email" />
 
-          <div className="entry">
-            <input
+            <Field
               type="text"
               name="birthday"
               id="birthday"
               placeholder="Birthday: MM/DD/YYYY"
-              {...formik.getFieldProps("birthday")}
             />
-          </div>
-          {formik.errors.birthday && formik.touched.birthday ? (
-            <span className="check"> {formik.errors.birthday} </span>
-          ) : null}
+            <ErrorMessage name="birthday" />
 
-          <div className="entry">
-            <input
+            <Field
               type="password"
               name="password"
               id="password"
               placeholder="password"
-              {...formik.getFieldProps("password")}
             />
-          </div>
-          {formik.errors.password && formik.touched.password ? (
-            <span className="check"> {formik.errors.password} </span>
-          ) : null}
+            <ErrorMessage name="password" />
 
-          <button type="submit" disabled={disabled}>
-            {" "}
-            Submit{" "}
-          </button>
-          {formik.touched.email && formik.touched.name && disabled ? (
-            <span className="check">
-              {" "}
-              *please check all fields are filled out{" "}
-            </span>
-          ) : (
-            ""
-          )}
-        </form>
+            <button type="submit">Submit</button>
+          </Form>
+        </Formik>
       </div>
     </SignUpDiv>
   );

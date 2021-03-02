@@ -52,6 +52,7 @@ const LogIn = (props) => {
               name="email"
               id="email"
               placeholder="email"
+              value={formik.values.email}
               {...formik.getFieldProps("email")}
             />
           </div>
@@ -64,6 +65,7 @@ const LogIn = (props) => {
               name="password"
               id="password"
               placeholder="password"
+              value={formik.values.password}
               {...formik.getFieldProps("password")}
             />
           </div>

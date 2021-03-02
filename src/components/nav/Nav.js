@@ -9,6 +9,7 @@ const Nav = (props) => {
       <NavLink to="/sign-up">Sign Up</NavLink>
       <NavLink to="/login">Login</NavLink>
       <NavLink to="/potlucks">Potlucks</NavLink>
+      <NavLink to="/home">Home</NavLink>
     </NavStyle>
   );
 };

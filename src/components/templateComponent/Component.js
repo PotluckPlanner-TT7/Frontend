@@ -1,29 +1,29 @@
-import React from 'react';
+import React from "react";
 import { connect } from "react-redux";
-import { startLogin, startSuccess, startFail } from '../../store/actions/loginActions';
+// import { startLogin, startSuccess, startFail } from '../../store/actions/loginActions';
 
-import StyledComponent from './StyledComponent';
+import StyledComponent from "./StyledComponent";
 //      change^               change^
 
 const Component = (props) => {
   console.log(props);
   //   change^^
-  return(
+  return (
     <StyledComponent>
       {/* change^^ */}
       test from Component.js
     </StyledComponent>
     // change^^
-  )
+  );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    userData: state.login.userData,
-    error: state.login.error,
-    loadingData: state.login.loadingData
-  }
-}
+// const mapStateToProps = (state) => {
+//   return {
+//     userData: state.login.userData,
+//     error: state.login.error,
+//     loadingData: state.login.loadingData
+//   }
+// }
 
-export default connect(mapStateToProps, {startLogin, startSuccess, startFail})(Component);
+// export default connect(mapStateToProps, {startLogin, startSuccess, startFail})(Component);
 //              change^^

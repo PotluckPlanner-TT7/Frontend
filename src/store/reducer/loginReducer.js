@@ -1,10 +1,16 @@
-import { LOG_IN_START, LOG_IN_SUCCESS, LOG_IN_FAIL } from "../actions/loginActions"
+import {
+  LOG_IN_START,
+  LOG_IN_SUCCESS,
+  LOG_IN_FAIL,
+} from "../actions/loginActions";
 
-const initialValue = {
-  userData: "",
-  error: "",
-  loadingData: false,
-};
+const initialValue = localStorage.getItem("userData")
+  ? JSON.parse(localStorage.getItem("userData"))
+  : {
+      userData: {},
+      error: "",
+      loadingData: false,
+    };
 
 export const loginReducer = (state = initialValue, action) => {
   switch (action.type) {
@@ -19,13 +25,13 @@ export const loginReducer = (state = initialValue, action) => {
         userData: action.payload,
         error: "",
         loadingData: false,
-      }
+      };
     case LOG_IN_FAIL:
       return {
         ...state,
         error: action.payload,
-        loadingData: false
-      }
+        loadingData: false,
+      };
     default:
       return state;
   }

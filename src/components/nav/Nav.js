@@ -19,7 +19,6 @@ const Nav = (props) => {
     <NavStyle>
       <NavLink to="/home">Home</NavLink>
       <NavLink to="/my-potlucks">My Potlucks</NavLink>
-      <NavLink to="/create-potluck">Create Pockluck</NavLink>
       <NavLink to="/login" onClick={signoutHandler}>
         Signout
       </NavLink>

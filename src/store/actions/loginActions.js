@@ -10,7 +10,6 @@ export const setUserData = (loginVal) => {
     axios
       .post(`https://potluckapi.herokuapp.com/api/login`, loginVal)
       .then((res) => {
-        console.log(res.data);
         localStorage.setItem("token", res.data.id);
         localStorage.setItem(
           "userData",

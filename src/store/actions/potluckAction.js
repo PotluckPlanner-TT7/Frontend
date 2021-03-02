@@ -11,7 +11,6 @@ export const getPotluckData = () => {
     axiosWithAuth()
       .get("/potlucks")
       .then((res) => {
-        console.log(res.data);
         localStorage.setItem(
           "potluckData",
           JSON.stringify({

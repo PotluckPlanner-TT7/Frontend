@@ -5,7 +5,6 @@ import HomeStyle from "./HomeStyle";
 import { getPotluckData } from "./../../store/actions/potluckAction";
 
 const Home = (props) => {
-  console.log(props);
   const { userData, getPotluckData, potluckData } = props;
   useEffect(() => {
     getPotluckData();

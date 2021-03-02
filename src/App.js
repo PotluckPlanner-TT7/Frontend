@@ -8,9 +8,9 @@ import Component from "./components/templateComponent/Component";
 function App() {
   return (
     <div className="App">
+      <Nav />
       <SignUp />
       <LogIn />
-      <Nav />
       <Switch>
         <Route path="/potlucks" component={PotLuck} />
         {/* <Route path="/sign-up" component={SignUp}/>

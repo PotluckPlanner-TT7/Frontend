@@ -2,10 +2,16 @@ import React from "react";
 import LogInDiv from "./LogInStyles";
 import { useState, useEffect } from "react";
 import * as Yup from "yup";
+
 import { useFormikContext, Formik, Form, Field, ErrorMessage } from "formik";
+import { connect } from "react-redux";
+import { setUserData } from "./../../store/actions/loginActions";
 
 // Initial Sign Up form values
-const initialValues = { email: "", password: "" };
+const initialValues = {
+  email: "outdatedemail1992@netscape.com",
+  password: "password",
+};
 
 // Yup validation schema
 const validationSchema = Yup.object({
@@ -17,8 +23,16 @@ const validationSchema = Yup.object({
 
 // React Component!
 const LogIn = (props) => {
-  const [user, setUser] = useState(initialValues);
+  console.log(props);
+  const { setUserData, history } = props;
+  const [User, setUser] = useState(initialValues);
   const [disabled, setDisabled] = useState(true);
+
+  const onSubmit = (values) => {
+    setUser(values);
+    setUserData(User);
+    history.push("/home");
+  };
 
   // Sets button to working or disabled based on inputs
   const FormikValueGet = () => {
@@ -65,4 +79,4 @@ const LogIn = (props) => {
   );
 };
 
-export default LogIn;
+export default connect(null, { setUserData })(LogIn);

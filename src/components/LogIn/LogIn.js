@@ -28,12 +28,6 @@ const LogIn = (props) => {
   const [User, setUser] = useState(initialValues);
   const [disabled, setDisabled] = useState(true);
 
-  const onSubmit = (values) => {
-    setUser(values);
-    setUserData(User);
-    history.push("/home");
-  };
-
   // Sets button to working or disabled based on inputs
   const FormikValueGet = () => {
     const { values } = useFormikContext();
@@ -53,6 +47,8 @@ const LogIn = (props) => {
           onSubmit={(values, { resetForm }) => {
             setUser(values);
             console.log(values);
+            setUserData(User);
+            history.push("/home");
             resetForm();
           }}
           validationSchema={validationSchema}

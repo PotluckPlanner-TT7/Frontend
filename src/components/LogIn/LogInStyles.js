@@ -39,8 +39,9 @@ const LogInDiv = styled.div`
     text-align: center;
     border-radius: 20px;
     border: 1px solid gray;
-    height: 1.7rem;
+    height: 2rem;
     font-size: 1.3rem;
+    margin-top: 4%;
   }
 
   button {

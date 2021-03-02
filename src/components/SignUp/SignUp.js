@@ -39,16 +39,9 @@ const SignUp = (props) => {
   const [newUser, setNewUser] = useState(initialValues);
   const [disabled, setDisabled] = useState(true);
 
-  // Where form data gets pushed on submit button click
-  const onSubmit = (values) => {
-    setNewUser(values);
-    console.log(values);
-  };
-
   // Sets button to working or disabled based on inputs
   const FormikValueGet = () => {
     const { values } = useFormikContext();
-    console.log(values);
     useEffect(() => {
       validationSchema.isValid(values).then((valid) => setDisabled(!valid));
     }, [values]);
@@ -69,7 +62,6 @@ const SignUp = (props) => {
           }}
           validationSchema={validationSchema}
         >
-          {/* onSubmit={formik.handleSubmit} */}
           <Form>
             <Field type="text" name="name" id="name" placeholder="Name" />
             <ErrorMessage name="name" />

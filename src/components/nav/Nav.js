@@ -9,6 +9,7 @@ const Nav = ({ signout, dispatch }) => {
   const signoutHandler = (e) => {
     localStorage.removeItem("token");
     localStorage.removeItem("userData"); //remove any user data we store in localStorage to persist through refreshing
+    localStorage.removeItem("potluckData");
     dispatch(signout());
   };
 
@@ -19,7 +20,7 @@ const Nav = ({ signout, dispatch }) => {
       <NavLink to="/home">Home</NavLink>
       <NavLink to="/my-potlucks">My Potlucks</NavLink>
       <NavLink to="/create-potluck">Create Pockluck</NavLink>
-      <NavLink to="/" onClick={signoutHandler}>
+      <NavLink to="/login" onClick={signoutHandler}>
         Signout
       </NavLink>
     </NavStyle>
@@ -27,7 +28,6 @@ const Nav = ({ signout, dispatch }) => {
     <NavStyle>
       <NavLink to="/sign-up">Sign Up</NavLink>
       <NavLink to="/login">Login</NavLink>
-      <NavLink to="/potlucks">Potlucks</NavLink>
     </NavStyle>
   );
 

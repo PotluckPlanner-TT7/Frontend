@@ -27,36 +27,30 @@ const LogInDiv = styled.div`
     margin: 2%;
   }
 
-  .entry {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 5%;
-  }
-
   input {
     width: 400px;
     text-align: center;
-    border-radius: 20px;
+    border-radius: 6px;
     border: 1px solid gray;
-    height: 1.7rem;
+    height: 2.3rem;
     font-size: 1.3rem;
+    margin-top: 3%;
   }
 
   button {
-    padding: 0.5rem;
+    padding: 0.3rem;
     margin: 1rem;
     font-family: "Permanent Marker";
     border-radius: 10%;
     font-size: 1.5rem;
-    background-color: teal;
-    border: none;
+    background-color: lightblue;
+    border: 2px solid lightblue;
     margin-left: 1rem;
     transition: 1s;
     :hover {
-      background-color: white;
-      color: #49bf9d;
-      border: none;
+      background-color: green;
+      color: white;
+      border: 2px solid #49bf9d;
     }
     :disabled {
       background-color: grey;

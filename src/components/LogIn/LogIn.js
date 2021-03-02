@@ -2,7 +2,8 @@ import React from "react";
 import LogInDiv from "./LogInStyles";
 import { useState, useEffect } from "react";
 import * as Yup from "yup";
-import { useFormik } from "formik";
+
+import { useFormikContext, Formik, Form, Field, ErrorMessage } from "formik";
 import { connect } from "react-redux";
 import { setUserData } from "./../../store/actions/loginActions";
 
@@ -33,65 +34,46 @@ const LogIn = (props) => {
     history.push("/home");
   };
 
-  // Formik function doing a lot of form work
-  const formik = useFormik({
-    initialValues,
-    onSubmit,
-    validationSchema,
-  });
-
   // Sets button to working or disabled based on inputs
-  useEffect(() => {
-    validationSchema
-      .isValid(formik.values)
-      .then((valid) => setDisabled(!valid));
-  }, [formik.values]);
+  const FormikValueGet = () => {
+    const { values } = useFormikContext();
+    useEffect(() => {
+      validationSchema.isValid(values).then((valid) => setDisabled(!valid));
+    }, [values]);
+    return null;
+  };
 
   // Return main LogIn form component
   return (
     <LogInDiv>
       <h1> Login</h1>
       <div className="formCont">
-        <form onSubmit={formik.handleSubmit}>
-          <div className="entry">
-            <input
-              type="text"
-              name="email"
-              id="email"
-              placeholder="email"
-              {...formik.getFieldProps("email")}
-            />
-          </div>
-          {formik.errors.email && formik.touched.email ? (
-            <span className="check"> {formik.errors.email} </span>
-          ) : null}
-
-          <div className="entry">
-            <input
+        <Formik
+          initialValues={initialValues}
+          onSubmit={(values, { resetForm }) => {
+            setUser(values);
+            console.log(values);
+            resetForm();
+          }}
+          validationSchema={validationSchema}
+        >
+          <Form>
+            <Field type="email" name="email" id="email" placeholder="email" />
+            <ErrorMessage name="email" />
+            <Field
               type="password"
               name="password"
               id="password"
               placeholder="password"
-              {...formik.getFieldProps("password")}
             />
-          </div>
-          {formik.errors.password && formik.touched.password ? (
-            <span className="check"> {formik.errors.password} </span>
-          ) : null}
+            <ErrorMessage name="password" />
 
-          <button type="submit" disabled={disabled}>
-            {" "}
-            Submit{" "}
-          </button>
-          {disabled ? (
-            <span className="check">
-              {" "}
-              *please check all fields are filled out{" "}
-            </span>
-          ) : (
-            ""
-          )}
-        </form>
+            <button type="submit" disabled={disabled}>
+              Submit{" "}
+            </button>
+            <FormikValueGet />
+          </Form>
+        </Formik>
       </div>
     </LogInDiv>
   );

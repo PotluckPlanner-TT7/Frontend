@@ -3,9 +3,14 @@ import LogInDiv from "./LogInStyles";
 import { useState, useEffect } from "react";
 import * as Yup from "yup";
 import { useFormik } from "formik";
+import { connect } from "react-redux";
+import { setUserData } from "./../../store/actions/loginActions";
 
 // Initial Sign Up form values
-const initialValues = { email: "", password: "" };
+const initialValues = {
+  email: "outdatedemail1992@netscape.com",
+  password: "password",
+};
 
 // Yup validation schema
 const validationSchema = Yup.object({
@@ -17,11 +22,15 @@ const validationSchema = Yup.object({
 
 // React Component!
 const LogIn = (props) => {
+  console.log(props);
+  const { setUserData, history } = props;
   const [User, setUser] = useState(initialValues);
   const [disabled, setDisabled] = useState(true);
 
   const onSubmit = (values) => {
     setUser(values);
+    setUserData(User);
+    history.push("/home");
   };
 
   // Formik function doing a lot of form work
@@ -88,4 +97,4 @@ const LogIn = (props) => {
   );
 };
 
-export default LogIn;
+export default connect(null, { setUserData })(LogIn);

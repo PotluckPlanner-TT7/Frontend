@@ -1,30 +1,27 @@
 import React from "react";
-import SignUpDiv from "./SignUpStyles";
+import LogInDiv from "./LogInStyles";
 import { useState, useEffect } from "react";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 
 // Initial Sign Up form values
-const initialValues = { name: "", email: "", password: "", birthday: "" };
+const initialValues = { email: "", password: "" };
 
 // Yup validation schema
 const validationSchema = Yup.object({
-  name: Yup.string().required("Required!"),
   email: Yup.string().email("Invalid email format").required("Required!"),
   password: Yup.string()
     .required()
-    .min(6, "Passsword must be at least 6 characters"),
-  birthday: Yup.string(),
+    .min(6, "Password must be at least 6 characters"),
 });
 
 // React Component!
-const SignUp = (props) => {
-  const [newUser, setNewUser] = useState(initialValues);
+const LogIn = (props) => {
+  const [User, setUser] = useState(initialValues);
   const [disabled, setDisabled] = useState(true);
 
   const onSubmit = (values) => {
-    setNewUser(values);
-    console.log(values);
+    setUser(values);
   };
 
   // Formik function doing a lot of form work
@@ -41,25 +38,12 @@ const SignUp = (props) => {
       .then((valid) => setDisabled(!valid));
   }, [formik.values]);
 
-  // Return main sign up form component
+  // Return main LogIn form component
   return (
-    <SignUpDiv>
-      <h1> Sign Up</h1>
+    <LogInDiv>
+      <h1> Login</h1>
       <div className="formCont">
         <form onSubmit={formik.handleSubmit}>
-          <div className="entry">
-            <input
-              type="text"
-              name="name"
-              id="name"
-              placeholder="Name"
-              {...formik.getFieldProps("name")}
-            />
-          </div>
-          {formik.errors.name && formik.touched.name ? (
-            <span className="check"> {formik.errors.name} </span>
-          ) : null}
-
           <div className="entry">
             <input
               type="text"
@@ -71,19 +55,6 @@ const SignUp = (props) => {
           </div>
           {formik.errors.email && formik.touched.email ? (
             <span className="check"> {formik.errors.email} </span>
-          ) : null}
-
-          <div className="entry">
-            <input
-              type="text"
-              name="birthday"
-              id="birthday"
-              placeholder="Birthday: MM/DD/YYYY"
-              {...formik.getFieldProps("birthday")}
-            />
-          </div>
-          {formik.errors.birthday && formik.touched.birthday ? (
-            <span className="check"> {formik.errors.birthday} </span>
           ) : null}
 
           <div className="entry">
@@ -113,8 +84,8 @@ const SignUp = (props) => {
           )}
         </form>
       </div>
-    </SignUpDiv>
+    </LogInDiv>
   );
 };
 
-export default SignUp;
+export default LogIn;

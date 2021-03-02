@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const SignUpDiv = styled.div`
+const LogInDiv = styled.div`
   box-sizing: border-box;
   width: 100%;
   display: flex;
@@ -49,12 +49,14 @@ const SignUpDiv = styled.div`
     font-family: "Permanent Marker";
     border-radius: 10%;
     font-size: 1.5rem;
-    background-color: #359ccc;
+    background-color: teal;
+    border: none;
     margin-left: 1rem;
+    transition: 1s;
     :hover {
       background-color: white;
       color: #49bf9d;
-      border: 2px solid #49bf9d;
+      border: none;
     }
     :disabled {
       background-color: grey;
@@ -69,4 +71,4 @@ const SignUpDiv = styled.div`
   }
 `;
 
-export default SignUpDiv;
+export default LogInDiv;

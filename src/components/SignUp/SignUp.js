@@ -22,6 +22,7 @@ const SignUp = (props) => {
   const [newUser, setNewUser] = useState(initialValues);
   const [disabled, setDisabled] = useState(true);
 
+  // Where form data gets pushed on submit button click
   const onSubmit = (values) => {
     setNewUser(values);
     console.log(values);
@@ -51,8 +52,10 @@ const SignUp = (props) => {
             <input
               type="text"
               name="name"
+              //
               id="name"
               placeholder="Name"
+              // Add value property and onchange property
               {...formik.getFieldProps("name")}
             />
           </div>

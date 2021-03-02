@@ -10,6 +10,7 @@ const initialValues = {
   username: "",
   email: "",
   password: "",
+  passwordconfirm: "",
   birthday: "",
 };
 
@@ -19,9 +20,10 @@ const validationSchema = Yup.object({
   username: Yup.string()
     .trim()
     .matches(
-      /^[a-z\s]+$/g,
+      /[a-z0-9]+$/g,
       "Only lowercase letters and numbers are allowed in usernames"
     )
+    .max(10, "Maximum of 10 characters")
     .required("Username is required"),
   email: Yup.string()
     .email("Invalid email format")
@@ -31,6 +33,9 @@ const validationSchema = Yup.object({
     .required()
     .trim()
     .min(6, "Passsword must be at least 6 characters"),
+  passwordconfirm: Yup.string()
+    .oneOf([Yup.ref("password"), null], "Passwords must match")
+    .required(),
   birthday: Yup.string(),
 });
 
@@ -71,6 +76,7 @@ const SignUp = (props) => {
               name="username"
               id="username"
               placeholder="Username"
+
               // pattern="^[a-z0-9_-]{3,16}$"
             />
             <ErrorMessage name="username" />
@@ -94,6 +100,14 @@ const SignUp = (props) => {
               placeholder="password"
             />
             <ErrorMessage name="password" />
+
+            <Field
+              type="password"
+              name="passwordconfirm"
+              id="passwordconfirm"
+              placeholder="Please confirm your password"
+            />
+            <ErrorMessage name="passwordconfirm" />
 
             <button type="submit" disabled={disabled}>
               Submit

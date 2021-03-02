@@ -30,11 +30,11 @@ const SignUpDiv = styled.div`
   input {
     width: 400px;
     text-align: center;
-    border-radius: 20px;
+    border-radius: 6px;
     border: 1px solid gray;
-    height: 2rem;
+    height: 2.3rem;
     font-size: 1.3rem;
-    margin-top: 4%;
+    margin-top: 3%;
   }
 
   button {
@@ -48,8 +48,8 @@ const SignUpDiv = styled.div`
     margin-left: 1rem;
     transition: 1s;
     :hover {
-      background-color: white;
-      color: #49bf9d;
+      background-color: green;
+      color: white;
       border: 2px solid #49bf9d;
     }
     :disabled {

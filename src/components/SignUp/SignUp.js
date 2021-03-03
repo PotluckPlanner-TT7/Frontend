@@ -40,7 +40,7 @@ const validationSchema = Yup.object({
   birthday: Yup.string(),
 });
 
-// React Component!
+// Main React Component
 const SignUp = (props) => {
   const [newUser, setNewUser] = useState(initialValues);
 

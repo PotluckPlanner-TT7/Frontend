@@ -26,6 +26,7 @@ const LogIn = (props) => {
   const { setUserData } = props;
   const [user, setUser] = useState(initialValues);
 
+  // check how often this is running****
   if (props.isLoggedIn) {
     props.history.push("/home");
   }

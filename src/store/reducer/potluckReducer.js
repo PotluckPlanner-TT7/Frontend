@@ -15,7 +15,16 @@ const initialValue = {
     creator: " ",
     itemsRequested: []
   }],
-
+  myPotLuckData: [{
+    id: Date.now(),
+    title: "something",
+    date: "",
+    location: "place",
+    description: "some place somewhere",
+    guests: ["me", "myself", "I"],
+    creator: " ",
+    itemsRequested: []
+  }],
   error: "",
   loadingPotluckData: false,
 };

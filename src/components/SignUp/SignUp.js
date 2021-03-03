@@ -1,8 +1,8 @@
 import React from "react";
 import SignUpDiv from "./SignUpStyles";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import * as Yup from "yup";
-import { useFormikContext, Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import TextError from "./TextError";
 
 // Initial Sign Up form values
@@ -61,7 +61,6 @@ const SignUp = (props) => {
           validateOnMount
         >
           {(formik) => {
-            console.log("formik props", formik);
             return (
               <Form>
                 <Field type="text" name="name" id="name" placeholder="Name" />

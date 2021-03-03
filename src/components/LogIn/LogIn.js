@@ -1,9 +1,9 @@
 import React from "react";
 import LogInDiv from "./LogInStyles";
 import TextError from "../SignUp/TextError";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import * as Yup from "yup";
-import { useFormikContext, Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import { connect } from "react-redux";
 import { setUserData } from "./../../store/actions/loginActions";
 
@@ -48,7 +48,6 @@ const LogIn = (props) => {
           validateOnMount
         >
           {(formik) => {
-            console.log("formik props", formik);
             return (
               <Form>
                 <Field

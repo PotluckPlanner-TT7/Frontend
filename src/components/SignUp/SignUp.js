@@ -3,6 +3,7 @@ import SignUpDiv from "./SignUpStyles";
 import { useState, useEffect } from "react";
 import * as Yup from "yup";
 import { useFormikContext, Formik, Form, Field, ErrorMessage } from "formik";
+import TextError from "./TextError";
 
 // Initial Sign Up form values
 const initialValues = {
@@ -32,7 +33,7 @@ const validationSchema = Yup.object({
   password: Yup.string()
     .required()
     .trim()
-    .min(6, "Passsword must be at least 6 characters"),
+    .min(6, "Password must be at least 6 characters"),
   passwordconfirm: Yup.string()
     .oneOf([Yup.ref("password"), null], "Passwords must match")
     .required(),
@@ -53,6 +54,11 @@ const SignUp = (props) => {
     return null;
   };
 
+  const onSubmit = (values) => {
+    console.log(values);
+    setNewUser(values);
+  };
+
   // Return main sign up form component
   return (
     <SignUpDiv>
@@ -60,29 +66,23 @@ const SignUp = (props) => {
       <div className="formCont">
         <Formik
           initialValues={initialValues}
-          onSubmit={(values, { resetForm }) => {
-            setNewUser(values);
-            console.log(values);
-            resetForm();
-          }}
+          onSubmit={onSubmit}
           validationSchema={validationSchema}
         >
           <Form>
             <Field type="text" name="name" id="name" placeholder="Name" />
-            <ErrorMessage name="name" />
+            <ErrorMessage name="name" component={TextError} />
 
             <Field
               type="text"
               name="username"
               id="username"
               placeholder="Username"
-
-              // pattern="^[a-z0-9_-]{3,16}$"
             />
-            <ErrorMessage name="username" />
+            <ErrorMessage name="username" component={TextError} />
 
             <Field type="email" name="email" id="email" placeholder="email" />
-            <ErrorMessage name="email" />
+            <ErrorMessage name="email" component={TextError} />
 
             <Field
               type="date"
@@ -99,15 +99,15 @@ const SignUp = (props) => {
               id="password"
               placeholder="password"
             />
-            <ErrorMessage name="password" />
+            <ErrorMessage name="password" component={TextError} />
 
             <Field
               type="password"
               name="passwordconfirm"
               id="passwordconfirm"
-              placeholder="Please confirm your password"
+              placeholder="Confirm your password"
             />
-            <ErrorMessage name="passwordconfirm" />
+            <ErrorMessage name="passwordconfirm" component={TextError} />
 
             <button type="submit" disabled={disabled}>
               Submit

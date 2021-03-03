@@ -1,8 +1,8 @@
 import React from "react";
 import LogInDiv from "./LogInStyles";
+import TextError from "../SignUp/TextError";
 import { useState, useEffect } from "react";
 import * as Yup from "yup";
-
 import { useFormikContext, Formik, Form, Field, ErrorMessage } from "formik";
 import { connect } from "react-redux";
 import { setUserData } from "./../../store/actions/loginActions";
@@ -24,8 +24,9 @@ const validationSchema = Yup.object({
 // React Component!
 const LogIn = (props) => {
   const { setUserData } = props;
-  const [User, setUser] = useState(initialValues);
+  const [user, setUser] = useState(initialValues);
   const [disabled, setDisabled] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
 
   if (props.isLoggedIn) {
     props.history.push("/home");
@@ -36,6 +37,7 @@ const LogIn = (props) => {
     const { values } = useFormikContext();
 
     useEffect(() => {
+      console.log("useEff run");
       validationSchema.isValid(values).then((valid) => setDisabled(!valid));
     }, [values]);
     return null;
@@ -48,26 +50,26 @@ const LogIn = (props) => {
       <div className="formCont">
         <Formik
           initialValues={initialValues}
-          onSubmit={(values, { resetForm }) => {
-            setUser(values);
-            setUserData(User);
-            resetForm();
+          onSubmit={async (values) => {
+            setSubmitting(true);
+            await setUser(values);
+            setUserData(user);
           }}
           validationSchema={validationSchema}
         >
           <Form>
             <Field type="email" name="email" id="email" placeholder="email" />
-            <ErrorMessage name="email" />
+            <ErrorMessage name="email" component={TextError} />
             <Field
               type="password"
               name="password"
               id="password"
               placeholder="password"
             />
-            <ErrorMessage name="password" />
+            <ErrorMessage name="password" component={TextError} />
 
             <button type="submit" disabled={disabled}>
-              Submit{" "}
+              {submitting ? "Loading" : "Submit"}
             </button>
             <FormikValueGet />
           </Form>

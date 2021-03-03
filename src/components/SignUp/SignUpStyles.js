@@ -10,7 +10,7 @@ const SignUpDiv = styled.div`
   border: 1px solid black;
 
   * {
-    border: 1px solid tomato;
+    /* border: 1px solid tomato; */
   }
 
   .formCont {
@@ -59,9 +59,10 @@ const SignUpDiv = styled.div`
     }
   }
 
-  .check {
+  .error {
     color: red;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
+    border: none;
   }
 `;
 

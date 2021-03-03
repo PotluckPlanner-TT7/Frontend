@@ -9,8 +9,8 @@ import { setUserData } from "./../../store/actions/loginActions";
 
 // Initial Sign Up form values
 const initialValues = {
-  email: "outdatedemail1992@netscape.com",
-  password: "password",
+  email: "testemail@fakeemail.com",
+  password: "abc123",
 };
 
 // Yup validation schema

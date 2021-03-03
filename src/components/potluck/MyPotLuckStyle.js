@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
-const PotLuckStyle = styled.div`
+const MyPotLuckStyle = styled.div`
   /*      change^ */
   background-color: #eee;
   box-sizing: border-box;
 `;
-export default PotLuckStyle;
+export default MyPotLuckStyle;
 //                 change^

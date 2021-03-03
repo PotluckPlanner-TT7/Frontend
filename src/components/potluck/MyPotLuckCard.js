@@ -1,6 +1,6 @@
 import React from "react";
 
-function PotLuckCard(props) {
+function MyPotLuckCard(props) {
   const {potluck} = props;
 
   return (
@@ -21,4 +21,4 @@ function PotLuckCard(props) {
   );
 }
 
-export default PotLuckCard;
+export default MyPotLuckCard;

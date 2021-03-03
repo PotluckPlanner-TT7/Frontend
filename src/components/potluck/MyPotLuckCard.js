@@ -6,16 +6,15 @@ function MyPotLuckCard(props) {
   return (
     <div>
       <ul>
-        <li>{potluck.title}</li>
-        <li>{potluck.description}</li>
-        <li>{potluck.date}</li>
-        <li>{potluck.creator}</li>
-        <li>{potluck.location}</li>
-        <ul>
+        <li>{potluck.potluck_title}</li>
+        <li>{potluck.potluck_description}</li>
+        <li>{potluck.potluck_date}</li>
+        <li>{potluck.potluck_location}</li>
+        {/* <ul>
           {potluck.guests.map(guest => {
             return (<li>{guest}</li>)
           })}
-        </ul>
+        </ul> */}
       </ul>
     </div>
   );

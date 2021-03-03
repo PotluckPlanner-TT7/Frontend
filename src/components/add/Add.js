@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import AddForm from "./AddForm"
 // import { startLogin, startSuccess, startFail } from '../../store/actions/loginActions';
 
 import AddStyles from "./AddStyles";
@@ -11,7 +12,7 @@ const Add = (props) => {
   return (
     <AddStyles>
       {/* change^^ */}
-      test from Component.js
+      <AddForm />
     </AddStyles>
     // change^^
   );

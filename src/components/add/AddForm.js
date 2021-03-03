@@ -1,32 +1,41 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
+import { addPotLuck } from "../../store/actions/potluckAction"
 
-const initialValues = {
-  organizer_id: "",
-  potluck_title: "",
-  potluck_location: "",
-  potluck_description: "",
-  potluck_date: "",
-  potluck_time: "",
-};
 
 function AddForm(props) {
+  const { userData, addPotLuck } = props;
+  let history = useHistory();
+    const initialValues = {
+      organizer_id: userData.id,
+      potluck_title: "",
+      potluck_location: "",
+      potluck_description: "",
+      potluck_date: "",
+      potluck_time: "",
+    };
   const [formValues, setFormValues] = useState(initialValues);
-  const { userData } = props;
   console.log(userData);
-
+  console.log(formValues)
   const onChange = (e) => {
+    console.log(e.target.value)
     setFormValues({
       ...formValues,
       [e.target.name]: e.target.value,
     });
   };
 
-  console.log(formValues);
+  const onSubmit = (e) => {
+    e.preventDefault();
+    console.log(formValues);
+    addPotLuck(formValues);
+    history.push("/my-potlucks");
+  }
 
   return (
     <div>
-      <form>
+      <form onSubmit={onSubmit}>
         <label htmlFor="organizer_id">Your User ID</label>
         <input
           type="text"
@@ -34,7 +43,7 @@ function AddForm(props) {
           onChange={onChange}
           placeholder="Organizer ID"
           id="organizer_id"
-          value={userData.id}
+          value={formValues.organizer_id}
         />
         <br/>
         <label htmlFor="title">Title</label>
@@ -97,4 +106,4 @@ const mapStateToProps = (state) => {
     userData: state.login.userData,
   };
 };
-export default connect(mapStateToProps)(AddForm);
+export default connect(mapStateToProps, {addPotLuck})(AddForm);

@@ -13,13 +13,23 @@ function MyPotLuckCard(props) {
       [event.target.name]: event.target.value,
     })
   }
-  const submitHandler = (event) => {
-    console.log(event)
+  const formSubmit = (event) => {
+    event.preventDefault();
+    if(editing){
+      console.log("submit call fired baybeeee")
+    } else {
+      console.log("editing in submit call evaluated to false")
+    }
     //Add Put request here.
+    //State toggle in submitHandler
   };
 
-  return (
-    <form>
+  const buttonToggle = (event) => {
+    setEditing(!editing)
+  }
+
+  const form = 
+  <form onSubmit={formSubmit}>
       <li><label> Title
         <input
         type="text"
@@ -68,23 +78,33 @@ function MyPotLuckCard(props) {
         onChange={changeHandler}
          />
       </label>
+
+      <button type="submit" onClick={formSubmit}>Save pot</button>
       </li>
     </form>
-    // <div>
-    //   <button onClick={submitHandler}> Edit Potluck </button>
-    //   <ul>
-    //     <li>{editing ? <input /> : <p>{potluck.title}</p>}</li>
-    //     <li>{potluck.description}</li>
-    //     <li>{potluck.date}</li>
-    //     <li>{potluck.creator}</li>
-    //     <li>{potluck.location}</li>
-    //     <ul>
-    //       {potluck.guests.map(guest => {
-    //         return (<li>{guest}</li>)
-    //       })}
-    //     </ul>
-    //   </ul>
-    // </div>
+
+    const thisPotluck = 
+    <ul>
+    <li>{editing ? <input /> : <p>{potluck.title}</p>}</li>
+    <li>{potluck.description}</li>
+    <li>{potluck.date}</li>
+    <li>{potluck.creator}</li>
+    <li>{potluck.location}</li>
+      <ul>
+        {potluck.guests.map(guest => {
+        return (<li>{guest}</li>)
+        })}
+      </ul>
+    </ul>
+
+  return (
+    <div>
+      {editing ? null : <button type="submit" onClick={buttonToggle}>Submit ze Pot</button>}
+
+      {editing ? form : thisPotluck }
+    
+    </div>
+
   );
 }
 

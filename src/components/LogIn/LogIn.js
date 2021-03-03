@@ -21,26 +21,18 @@ const validationSchema = Yup.object({
     .min(6, "Password must be at least 6 characters"),
 });
 
-// React Component!
+// Main React Component
 const LogIn = (props) => {
   const { setUserData } = props;
   const [user, setUser] = useState(initialValues);
-  const [disabled, setDisabled] = useState(true);
-  const [submitting, setSubmitting] = useState(false);
 
   if (props.isLoggedIn) {
     props.history.push("/home");
   }
 
-  // Sets button to working or disabled based on inputs
-  const FormikValueGet = () => {
-    const { values } = useFormikContext();
-
-    useEffect(() => {
-      console.log("useEff run");
-      validationSchema.isValid(values).then((valid) => setDisabled(!valid));
-    }, [values]);
-    return null;
+  const onSubmit = (values) => {
+    setUser(values);
+    setUserData(user);
   };
 
   // Return main LogIn form component
@@ -50,29 +42,38 @@ const LogIn = (props) => {
       <div className="formCont">
         <Formik
           initialValues={initialValues}
-          onSubmit={async (values) => {
-            setSubmitting(true);
-            await setUser(values);
-            setUserData(user);
-          }}
+          onSubmit={onSubmit}
           validationSchema={validationSchema}
+          validateOnMount
         >
-          <Form>
-            <Field type="email" name="email" id="email" placeholder="email" />
-            <ErrorMessage name="email" component={TextError} />
-            <Field
-              type="password"
-              name="password"
-              id="password"
-              placeholder="password"
-            />
-            <ErrorMessage name="password" component={TextError} />
+          {(formik) => {
+            console.log("formik props", formik);
+            return (
+              <Form>
+                <Field
+                  type="email"
+                  name="email"
+                  id="email"
+                  placeholder="email"
+                />
+                <ErrorMessage name="email" component={TextError} />
+                <Field
+                  type="password"
+                  name="password"
+                  id="password"
+                  placeholder="password"
+                />
+                <ErrorMessage name="password" component={TextError} />
 
-            <button type="submit" disabled={disabled}>
-              {submitting ? "Loading" : "Submit"}
-            </button>
-            <FormikValueGet />
-          </Form>
+                <button
+                  type="submit"
+                  disabled={!formik.isValid || formik.isSubmitting}
+                >
+                  Submit
+                </button>
+              </Form>
+            );
+          }}
         </Formik>
       </div>
     </LogInDiv>

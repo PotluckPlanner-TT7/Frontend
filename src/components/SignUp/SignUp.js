@@ -43,16 +43,6 @@ const validationSchema = Yup.object({
 // React Component!
 const SignUp = (props) => {
   const [newUser, setNewUser] = useState(initialValues);
-  const [disabled, setDisabled] = useState(true);
-
-  // Sets button to working or disabled based on inputs
-  const FormikValueGet = () => {
-    const { values } = useFormikContext();
-    useEffect(() => {
-      validationSchema.isValid(values).then((valid) => setDisabled(!valid));
-    }, [values]);
-    return null;
-  };
 
   const onSubmit = (values) => {
     console.log(values);
@@ -68,52 +58,65 @@ const SignUp = (props) => {
           initialValues={initialValues}
           onSubmit={onSubmit}
           validationSchema={validationSchema}
+          validateOnMount
         >
-          <Form>
-            <Field type="text" name="name" id="name" placeholder="Name" />
-            <ErrorMessage name="name" component={TextError} />
+          {(formik) => {
+            console.log("formik props", formik);
+            return (
+              <Form>
+                <Field type="text" name="name" id="name" placeholder="Name" />
+                <ErrorMessage name="name" component={TextError} />
 
-            <Field
-              type="text"
-              name="username"
-              id="username"
-              placeholder="Username"
-            />
-            <ErrorMessage name="username" component={TextError} />
+                <Field
+                  type="text"
+                  name="username"
+                  id="username"
+                  placeholder="Username"
+                />
+                <ErrorMessage name="username" component={TextError} />
 
-            <Field type="email" name="email" id="email" placeholder="email" />
-            <ErrorMessage name="email" component={TextError} />
+                <Field
+                  type="email"
+                  name="email"
+                  id="email"
+                  placeholder="email"
+                />
+                <ErrorMessage name="email" component={TextError} />
 
-            <Field
-              type="date"
-              name="birthday"
-              id="birthday"
-              placeholder="Birthday: MM/DD/YYYY"
-            />
-            <label htmlFor="birthday"> Birthday </label>
-            <ErrorMessage name="birthday" />
+                <Field
+                  type="date"
+                  name="birthday"
+                  id="birthday"
+                  placeholder="Birthday: MM/DD/YYYY"
+                />
+                <label htmlFor="birthday"> Birthday </label>
+                <ErrorMessage name="birthday" />
 
-            <Field
-              type="password"
-              name="password"
-              id="password"
-              placeholder="password"
-            />
-            <ErrorMessage name="password" component={TextError} />
+                <Field
+                  type="password"
+                  name="password"
+                  id="password"
+                  placeholder="password"
+                />
+                <ErrorMessage name="password" component={TextError} />
 
-            <Field
-              type="password"
-              name="passwordconfirm"
-              id="passwordconfirm"
-              placeholder="Confirm your password"
-            />
-            <ErrorMessage name="passwordconfirm" component={TextError} />
+                <Field
+                  type="password"
+                  name="passwordconfirm"
+                  id="passwordconfirm"
+                  placeholder="Confirm your password"
+                />
+                <ErrorMessage name="passwordconfirm" component={TextError} />
 
-            <button type="submit" disabled={disabled}>
-              Submit
-            </button>
-            <FormikValueGet />
-          </Form>
+                <button
+                  type="submit"
+                  disabled={!formik.isValid || formik.isSubmitting}
+                >
+                  Submit
+                </button>
+              </Form>
+            );
+          }}
         </Formik>
       </div>
     </SignUpDiv>

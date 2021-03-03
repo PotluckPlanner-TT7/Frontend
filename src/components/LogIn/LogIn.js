@@ -9,8 +9,8 @@ import { setUserData } from "./../../store/actions/loginActions";
 
 // Initial Sign Up form values
 const initialValues = {
-  email: "outdatedemail1992@netscape.com",
-  password: "password",
+  email: "testemail@fakeemail.com",
+  password: "abc123",
 };
 
 // Yup validation schema
@@ -31,9 +31,12 @@ const LogIn = (props) => {
     props.history.push("/home");
   }
 
-  const onSubmit = (values) => {
+  const onSubmit = async (values, onSubmitProps) => {
     setUser(values);
-    setUserData(user);
+    console.log(values);
+    // user should be replaced by values
+    setUserData(values);
+    onSubmitProps.setSubmitting(false);
   };
 
   // Return main LogIn form component

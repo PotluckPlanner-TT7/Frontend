@@ -7,7 +7,11 @@ function MyPotLuckCard(props) {
   const [ values, setValues ] = useState(potluck)
 
   const changeHandler = (event) => {
-    console.log(values)
+    console.log(event)
+    setValues({
+      ...values,
+      [event.target.name]: event.target.value,
+    })
   }
   const submitHandler = (event) => {
     console.log(event)

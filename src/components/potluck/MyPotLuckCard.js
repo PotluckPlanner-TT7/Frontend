@@ -20,8 +20,7 @@ function MyPotLuckCard(props) {
     } else {
       console.log("editing in submit call evaluated to false")
     }
-    //Add Put request here.
-    //State toggle in submitHandler
+    // NOTE TO TEAM - WE NEED THE DATA TO SEND ON THIS CALL.
   };
 
   const buttonToggle = (event) => {

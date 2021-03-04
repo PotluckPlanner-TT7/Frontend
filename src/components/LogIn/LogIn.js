@@ -8,6 +8,7 @@ import { connect } from "react-redux";
 import { setUserData } from "./../../store/actions/loginActions";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
+import Card from "@material-ui/core/Card";
 
 // Initial Sign Up form values
 const initialValues = {
@@ -51,7 +52,7 @@ const LogIn = (props) => {
   return (
     <LogInDiv>
       <h1> Login</h1>
-      <div className="formCont">
+      <Card>
         <form onSubmit={formik.handleSubmit}>
           <TextField
             fullWidth
@@ -82,7 +83,7 @@ const LogIn = (props) => {
             Submit
           </Button>
         </form>
-      </div>
+      </Card>
     </LogInDiv>
   );
 };

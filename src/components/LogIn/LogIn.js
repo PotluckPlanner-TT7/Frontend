@@ -11,8 +11,8 @@ import TextField from "@material-ui/core/TextField";
 
 // Initial Sign Up form values
 const initialValues = {
-  email: "testemail@fakeemail.com",
-  password: "abc123",
+  email: "testing1@testing.com",
+  password: "password",
 };
 
 // Yup validation schema

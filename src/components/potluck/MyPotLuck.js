@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import {
-getPotluckData, getOrganizerPotLuck
+  getPotluckData,
+  getOrganizerPotLuck,
 } from "../../store/actions/potluckAction";
 
 import MyPotLuckCard from "./MyPotLuckCard";
@@ -11,32 +12,31 @@ import MyPotLuckStyle from "./MyPotLuckStyle";
 
 const MyPotLuck = (props) => {
   const { myPotLuckData, userID, getOrganizerPotLuck } = props;
-  console.log(myPotLuckData)
+
   const addNewPotLuck = () => {
-    props.history.push("/add-potluck")
-  }
+    props.history.push("/add-potluck");
+  };
   useEffect(() => {
     getOrganizerPotLuck(userID);
-  }, [userID] )
+  }, [getOrganizerPotLuck, userID]);
 
   return (
     <MyPotLuckStyle>
       <button onClick={addNewPotLuck}>Add Potluck</button>
       {myPotLuckData.map((pot) => {
-        return <MyPotLuckCard key={pot.id} potluck={pot} />;
-      })} 
+        return <MyPotLuckCard key={pot.potluck_description} potluck={pot} />;
+      })}
     </MyPotLuckStyle>
   );
 };
 
 const mapStateToProps = (state) => {
-
   return {
     potluckData: state.potluck.potluckData,
     error: state.potluck.error,
     loadingPotluckData: state.potluck.loadingPotluckData,
     myPotLuckData: state.potluck.myPotLuckData,
-    userID: state.login.userData.id
+    userID: state.login.userData.id,
   };
 };
 

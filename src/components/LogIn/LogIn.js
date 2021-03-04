@@ -9,7 +9,7 @@ import { setUserData } from "./../../store/actions/loginActions";
 
 // Initial Sign Up form values
 const initialValues = {
-  email: "testing2@testing.com",
+  email: "testing1@testing.com",
   password: "password",
 };
 
@@ -25,6 +25,7 @@ const validationSchema = Yup.object({
 const LogIn = (props) => {
   const { setUserData } = props;
   const [user, setUser] = useState(initialValues);
+  console.log(user);
 
   // check how often this is running****
   if (props.isLoggedIn) {

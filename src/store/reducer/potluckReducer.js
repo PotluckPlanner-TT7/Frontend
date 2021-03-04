@@ -21,8 +21,8 @@ const initialValue = {
   myPotLuckData: [{
     organizer_id: "",
     potluck_title: "something",
-    potluck_date: "",
-    potluck_time: "",
+    potluck_date: "03/04/2021",
+    potluck_time: "15:00",
     potluck_location: "place",
     potluck_description: "some place somewhere",
     // guests: ["me", "myself", "I"],
@@ -56,14 +56,14 @@ export const potluckReducer = (state = initialValue, action) => {
     case ADD:
       return {
         ...state,
-        myPotLuckData: [...state.myPotLuckData, state.myPotLuckData.push(action.payload) ],
+        myPotLuckData: [...state.myPotLuckData, action.payload ],
         error: "",
         loadingPotluckData: false,
       }
     case ORGANIZER_POTLUCK:
       return {
         ...state,
-        myPotLuckData: [...state.myPotLuckData, state.myPotLuckData.push(action.payload)],
+        myPotLuckData: action.payload,
         error: "",
         loadingPotLuckData: false,
       }

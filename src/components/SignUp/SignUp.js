@@ -1,17 +1,19 @@
 import React from "react";
 import SignUpDiv from "./SignUpStyles";
 import * as Yup from "yup";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import TextError from "./TextError";
+import { useFormik } from "formik";
 import axios from "axios";
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+import Card from "@material-ui/core/Card";
 
 // Initial Sign Up form values
 const initialValues = {
-  name: "",
-  username: "",
-  email: "",
-  password: "",
-  passwordconfirm: "",
+  name: "Max H",
+  username: "mhhhhh",
+  email: "test@gmail.com",
+  password: "Mypass",
+  passwordconfirm: "Mypass",
   // birthday: "",
 };
 
@@ -63,71 +65,100 @@ const SignUp = (props) => {
       });
   };
 
+  const formik = useFormik({
+    initialValues: initialValues,
+    validationSchema: validationSchema,
+    onSubmit: onSubmit,
+  });
+
   // Return main sign up form component
   return (
     <SignUpDiv>
-      <h1> Sign Up</h1>
-      <div className="formCont">
-        <Formik
-          initialValues={initialValues}
-          onSubmit={onSubmit}
-          validationSchema={validationSchema}
-          validateOnMount
-        >
-          {(formik) => {
-            console.log(formik);
-            return (
-              <Form>
-                {formik.isSubmitting ? <p>loading...</p> : null}
-                <Field type="text" name="name" id="name" placeholder="Name" />
-                <ErrorMessage name="name" component={TextError} />
-                <Field
-                  type="text"
-                  name="username"
-                  id="username"
-                  placeholder="Username"
-                />
-                <ErrorMessage name="username" component={TextError} />
-                <Field
-                  type="email"
-                  name="email"
-                  id="email"
-                  placeholder="email"
-                />
-                <ErrorMessage name="email" component={TextError} />
-                {/* <Field
-                  type="date"
-                  name="birthday"
-                  id="birthday"
-                  placeholder="Birthday: MM/DD/YYYY"
-                />
-                <label htmlFor="birthday"> Birthday </label>
-                <ErrorMessage name="birthday" /> */}
-                <Field
-                  type="password"
-                  name="password"
-                  id="password"
-                  placeholder="password"
-                />
-                <ErrorMessage name="password" component={TextError} />
-                <Field
-                  type="password"
-                  name="passwordconfirm"
-                  id="passwordconfirm"
-                  placeholder="Confirm your password"
-                />
-                <ErrorMessage name="passwordconfirm" component={TextError} />
-                <button
-                  type="submit"
-                  disabled={!formik.isValid || formik.isSubmitting}
-                >
-                  Submit
-                </button>
-              </Form>
-            );
-          }}
-        </Formik>
-      </div>
+      <h1> Sign Up to PotluckParty 🍽</h1>
+      <Card>
+        <form onSubmit={formik.handleSubmit}>
+          {formik.isSubmitting ? <p>loading...</p> : null}
+          <TextField
+            fullWidth
+            type="text"
+            label="Name"
+            name="name"
+            id="name"
+            value={formik.values.name}
+            onChange={formik.handleChange}
+            error={formik.touched.name && Boolean(formik.errors.name)}
+            helperText={formik.touched.name && formik.errors.name}
+          />
+
+          <TextField
+            fullWidth
+            type="text"
+            label="Username"
+            name="username"
+            id="username"
+            value={formik.values.username}
+            onChange={formik.handleChange}
+            error={formik.touched.username && Boolean(formik.errors.username)}
+            helperText={formik.touched.username && formik.errors.username}
+          />
+
+          <TextField
+            fullWidth
+            type="email"
+            label="Email"
+            name="email"
+            id="email"
+            value={formik.values.email}
+            onChange={formik.handleChange}
+            error={formik.touched.email && Boolean(formik.errors.email)}
+            helperText={formik.touched.email && formik.errors.email}
+          />
+
+          {/* <TextField
+            fullWidth
+            id="birthday"
+            name="birthday"
+            label="Birthday"
+            type="date"
+            value={formik.values.birthday}
+            onChange={formik.handleChange}
+            error={formik.touched.birthday && Boolean(formik.errors.birthday)}
+            helperText={formik.touched.birthday && formik.errors.birthday}
+          /> */}
+          <TextField
+            fullWidth
+            id="password"
+            name="password"
+            label="Password"
+            type="password"
+            value={formik.values.password}
+            onChange={formik.handleChange}
+            error={formik.touched.password && Boolean(formik.errors.password)}
+            helperText={formik.touched.password && formik.errors.password}
+          />
+
+          <TextField
+            fullWidth
+            id="passwordconfirm"
+            name="passwordconfirm"
+            label="Confirm Password"
+            type="password"
+            value={formik.values.passwordconfirm}
+            onChange={formik.handleChange}
+            error={
+              formik.touched.passwordconfirm &&
+              Boolean(formik.errors.passwordconfirm)
+            }
+            helperText={
+              formik.touched.passwordconfirm && formik.errors.passwordconfirm
+            }
+          />
+
+          <Button color="primary" variant="contained" fullWidth type="submit">
+            Submit
+          </Button>
+        </form>
+      </Card>
     </SignUpDiv>
   );
 };

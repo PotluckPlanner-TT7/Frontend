@@ -47,10 +47,6 @@ const LogIn = (props) => {
     onSubmit: onSubmit,
   });
 
-  const logger = (values) => {
-    console.log(values);
-  };
-
   // Return main LogIn form component
   return (
     <LogInDiv>

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { axiosWithAuth } from "../../utils/axiosWithAuth";
+import { updatePotluckData } from "../../store/actions/potluckAction";
+import {connect} from "react-redux"
 
 function MyPotLuckCard(props) {
   const {potluck} = props;
@@ -23,7 +25,8 @@ function MyPotLuckCard(props) {
       setEditing(!editing)
 
       axiosWithAuth()
-      .put("NEED_ENDPOINT_URL", {potluck: values})
+      .put(`https://potluckapi.herokuapp.com/api/potlucks/${potluck.potluck_id}`, {potluck: values})
+      .then()
       .catch(err => {
         console.log(err)
       });
@@ -60,7 +63,7 @@ function MyPotLuckCard(props) {
         <input
         type="text"
         name="description"
-        value={values.description}
+        value={potluck.myPotLuckData[0].description}
         onChange={changeHandler}
          />
       </label>
@@ -99,18 +102,19 @@ function MyPotLuckCard(props) {
       </li>
     </form>
 
+
     const thisPotluck = 
     <ul>
-    <li>{editing ? <input /> : <p>{potluck.title}</p>}</li>
-    <li>{potluck.description}</li>
-    <li>{potluck.date}</li>
-    <li>{potluck.creator}</li>
-    <li>{potluck.location}</li>
-      <ul>
+    <li>{editing ? <input /> : <p>{potluck.myPotLuckData[0].title}</p>}</li>
+    <li>{potluck.myPotLuckData[0].description}</li>
+    <li>{potluck.myPotLuckData[0].date}</li>
+    <li>{potluck.myPotLuckData[0].creator}</li>
+    <li>{potluck.myPotLuckData[0].location}</li>
+      {/* <ul>
         {potluck.guests.map(guest => {
         return (<li>{guest}</li>)
         })}
-      </ul>
+      </ul> */}
     </ul>
 
   return (
@@ -124,4 +128,10 @@ function MyPotLuckCard(props) {
   );
 }
 
-export default MyPotLuckCard;
+const mapStateToProps = (state) => {
+  return {
+    ...state,
+  }
+}
+export default connect(mapStateToProps)(MyPotLuckCard);
+

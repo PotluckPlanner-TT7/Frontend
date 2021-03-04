@@ -2,6 +2,7 @@ import {
   LOAD_POTLUCKS,
   SET_POTLUCKS_SUCCESS,
   SET_ERROR,
+  UPDATE_POTLUCK,
 } from "./../actions/potluckAction";
 
 const initialValue = {
@@ -42,6 +43,17 @@ export const potluckReducer = (state = initialValue, action) => {
         potluckData: action.payload,
         error: "",
         loadingPotluckData: false,
+      };
+    case UPDATE_POTLUCK:
+      return {
+        ...state,
+        myPotLuckData: [...state.myPotLuckData.map(potluck => {
+          if(potluck.id === action.payload.id){
+            return action.payload
+          } else{
+            return potluck
+          }
+        })],
       };
     case SET_ERROR:
       return {

@@ -4,6 +4,7 @@ import { axiosWithAuth } from "./../../utils/axiosWithAuth";
 export const LOAD_POTLUCKS = "LOAD_POTLUCKS";
 export const SET_POTLUCKS_SUCCESS = "SET_POTLUCKS_SUCCESS";
 export const SET_ERROR = "SET_ERROR";
+export const UPDATE_POTLUCK = "UPDATE_POTLUCK";
 
 export const getPotluckData = () => {
   return (dispatch) => {
@@ -26,3 +27,8 @@ export const getPotluckData = () => {
       });
   };
 };
+
+export const updatePotluckData = (potluck) => {
+  return {type: UPDATE_POTLUCK, payload: potluck }
+
+}

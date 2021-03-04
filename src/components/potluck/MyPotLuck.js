@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import {
-getPotluckData
+getPotluckData, getOrganizerPotLuck
 } from "../../store/actions/potluckAction";
 
 import MyPotLuckCard from "./MyPotLuckCard";
@@ -10,11 +10,14 @@ import MyPotLuckStyle from "./MyPotLuckStyle";
 //      change^               change^
 
 const MyPotLuck = (props) => {
-  const { myPotLuckData } = props;
-
+  const { myPotLuckData, userID, getOrganizerPotLuck } = props;
+  console.log(myPotLuckData)
   const addNewPotLuck = () => {
     props.history.push("/add-potluck")
   }
+  useEffect(() => {
+    getOrganizerPotLuck(userID);
+  }, [userID] )
 
   return (
     <MyPotLuckStyle>
@@ -27,15 +30,18 @@ const MyPotLuck = (props) => {
 };
 
 const mapStateToProps = (state) => {
+
   return {
     potluckData: state.potluck.potluckData,
     error: state.potluck.error,
     loadingPotluckData: state.potluck.loadingPotluckData,
-    myPotLuckData: state.potluck.myPotLuckData
+    myPotLuckData: state.potluck.myPotLuckData,
+    userID: state.login.userData.id
   };
 };
 
 export default connect(mapStateToProps, {
+  getOrganizerPotLuck,
   getPotluckData,
 })(MyPotLuck);
 //              change^^

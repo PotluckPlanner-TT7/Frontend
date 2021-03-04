@@ -10,16 +10,17 @@ export const setUserData = (loginVal) => {
     axios
       .post(`https://potluckapi.herokuapp.com/api/login`, loginVal)
       .then((res) => {
-        localStorage.setItem("token", res.data.id);
+        console.log(res.data.user);
+        localStorage.setItem("token", res.data.token);
         localStorage.setItem(
           "userData",
           JSON.stringify({
-            userData: res.data,
+            userData: res.data.user,
             error: "",
             loadingData: false,
           })
         );
-        dispatch({ type: LOG_IN_SUCCESS, payload: res.data });
+        dispatch({ type: LOG_IN_SUCCESS, payload: res.data.user });
       })
       .catch((err) => {
         dispatch({ type: LOG_IN_FAIL, payload: err });

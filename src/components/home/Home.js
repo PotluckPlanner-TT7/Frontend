@@ -8,7 +8,7 @@ const Home = (props) => {
   const { userData, getPotluckData, potluckData } = props;
   useEffect(() => {
     getPotluckData();
-  }, [getPotluckData]);
+  }, []);
   return (
     <HomeStyle>
       <h1>Welcome {userData.username}</h1>

@@ -41,7 +41,7 @@ const LogInDiv = styled.div`
     padding: 0.3rem;
     margin: 1rem;
     font-family: "Permanent Marker";
-    border-radius: 10%;
+    border-radius: 6px;
     font-size: 1.5rem;
     background-color: lightblue;
     border: 2px solid lightblue;
@@ -59,7 +59,7 @@ const LogInDiv = styled.div`
     }
   }
 
-  .check {
+  .error {
     color: red;
     font-size: 0.8rem;
   }

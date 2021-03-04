@@ -6,8 +6,8 @@ import {
 } from "../../store/actions/potluckAction";
 
 import MyPotLuckCard from "./MyPotLuckCard";
-
-import "./MyPotLuckStyle.css";
+import MyPotLuckStyle from "./MyPotLuckStyle";
+// import "./MyPotLuckStyle.css";
 
 const MyPotLuck = (props) => {
   const { myPotLuckData, userID, getOrganizerPotLuck } = props;
@@ -20,12 +20,12 @@ const MyPotLuck = (props) => {
   }, [getOrganizerPotLuck, userID]);
 
   return (
-    <>
+    <MyPotLuckStyle>
       <button onClick={addNewPotLuck}>Add Potluck</button>
       {myPotLuckData.map((pot) => {
         return <MyPotLuckCard key={pot.potluck_title} potluck={pot} />;
       })}
-    </>
+    </MyPotLuckStyle>
   );
 };
 

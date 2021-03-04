@@ -1,7 +1,7 @@
 import React from "react";
 import LogInDiv from "./LogInStyles";
-import TextError from "../SignUp/TextError";
-import { useState } from "react";
+// import TextError from "../SignUp/TextError";
+// import { useState } from "react";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { connect } from "react-redux";

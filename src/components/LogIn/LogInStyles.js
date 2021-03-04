@@ -10,7 +10,7 @@ const LogInDiv = styled.div`
   border: 1px solid black;
 
   * {
-    border: 1px solid tomato;
+    /* border: 1px solid tomato; */
   }
 
   .formCont {
@@ -28,30 +28,29 @@ const LogInDiv = styled.div`
   }
 
   input {
-    width: 400px;
+    /* width: 400px; */
     text-align: center;
-    border-radius: 6px;
-    border: 1px solid gray;
-    height: 2.3rem;
-    font-size: 1.3rem;
-    margin-top: 3%;
+    /* border-radius: 6px; */
+    /* border: 1px solid gray; */
+    /* height: 2.3rem; */
+    /* font-size: 1.3rem; */
+    /* margin-bottom: 3%; */
   }
 
   button {
     padding: 0.3rem;
     margin: 1rem;
-    font-family: "Permanent Marker";
+    /* font-family: "Permanent Marker"; */
     border-radius: 6px;
-    font-size: 1.5rem;
-    background-color: lightblue;
-    border: 2px solid lightblue;
+    /* font-size: 1.5rem; */
     margin-left: 1rem;
-    transition: 1s;
-    :hover {
-      background-color: green;
+    margin-top: 1rem;
+    /* transition: 1s; */
+    /* :hover {
+      /* background-color: green;
       color: white;
-      border: 2px solid #49bf9d;
-    }
+      border: 2px solid #49bf9d; */
+    } */
     :disabled {
       background-color: grey;
       border: 2px solid white;

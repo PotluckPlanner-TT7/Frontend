@@ -1,22 +1,24 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
-import { addPotLuck } from "../../store/actions/potluckAction"
-
+import { addPotLuck } from "../../store/actions/potluckAction";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
+import Card from "@material-ui/core/Card";
 
 function AddForm(props) {
   const { userData, addPotLuck } = props;
   let history = useHistory();
-    const initialValues = {
-      organizer_id: userData.id,
-      potluck_title: "",
-      potluck_location: "",
-      potluck_description: "",
-      potluck_date: "",
-      potluck_time: "",
-      guests: [],
-      potluck_items: [],
-    };
+  const initialValues = {
+    organizer_id: userData.id,
+    potluck_title: "",
+    potluck_location: "",
+    potluck_description: "",
+    potluck_date: "",
+    potluck_time: "",
+    guests: [],
+    potluck_items: [],
+  };
   const [formValues, setFormValues] = useState(initialValues);
 
   const onChange = (e) => {
@@ -30,13 +32,14 @@ function AddForm(props) {
     e.preventDefault();
     addPotLuck(formValues);
     history.push("/my-potlucks");
-  }
+  };
 
   return (
-    <div>
+    <Card>
       <form onSubmit={onSubmit}>
         <label htmlFor="organizer_id">Your User ID</label>
-        <input
+        <TextField
+          fullWidth
           type="text"
           name="organizer_id"
           onChange={onChange}
@@ -44,9 +47,10 @@ function AddForm(props) {
           id="organizer_id"
           value={formValues.organizer_id}
         />
-        <br/>
+        <br />
         <label htmlFor="title">Title</label>
-        <input
+        <TextField
+          fullWidth
           type="text"
           name="potluck_title"
           onChange={onChange}
@@ -56,7 +60,8 @@ function AddForm(props) {
         />
         <br />
         <label htmlFor="location">Location</label>
-        <input
+        <TextField
+          fullWidth
           type="text"
           name="potluck_location"
           onChange={onChange}
@@ -66,7 +71,8 @@ function AddForm(props) {
         />
         <br />
         <label htmlFor="description">Description</label>
-        <input
+        <TextField
+          fullWidth
           type="text"
           name="potluck_description"
           onChange={onChange}
@@ -76,7 +82,8 @@ function AddForm(props) {
         />
         <br />
         <label htmlFor="date">Date</label>
-        <input
+        <TextField
+          fullWidth
           type="text"
           name="potluck_date"
           onChange={onChange}
@@ -86,7 +93,8 @@ function AddForm(props) {
         />
         <br />
         <label htmlFor="time">Time</label>
-        <input
+        <TextField
+          fullWidth
           type="text"
           name="potluck_time"
           onChange={onChange}
@@ -95,9 +103,11 @@ function AddForm(props) {
           value={formValues.potluck_time}
         />
         <br />
-        <button type="submit">Submit</button>
+        <Button type="submit" color="secondary" variant="contained" fullWidth>
+          Submit
+        </Button>
       </form>
-    </div>
+    </Card>
   );
 }
 const mapStateToProps = (state) => {
@@ -105,4 +115,4 @@ const mapStateToProps = (state) => {
     userData: state.login.userData,
   };
 };
-export default connect(mapStateToProps, {addPotLuck})(AddForm);
+export default connect(mapStateToProps, { addPotLuck })(AddForm);

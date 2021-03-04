@@ -8,6 +8,7 @@ import {
 import MyPotLuckCard from "./MyPotLuckCard";
 import MyPotLuckStyle from "./MyPotLuckStyle";
 // import "./MyPotLuckStyle.css";
+import Button from "@material-ui/core/Button";
 
 const MyPotLuck = (props) => {
   const { myPotLuckData, userID, getOrganizerPotLuck } = props;
@@ -21,7 +22,14 @@ const MyPotLuck = (props) => {
 
   return (
     <MyPotLuckStyle>
-      <button onClick={addNewPotLuck}>Add Potluck</button>
+      <Button
+        onClick={addNewPotLuck}
+        color="secondary"
+        variant="contained"
+        type="submit"
+      >
+        Add Potluck
+      </Button>
       {myPotLuckData.map((pot) => {
         return <MyPotLuckCard key={pot.potluck_title} potluck={pot} />;
       })}

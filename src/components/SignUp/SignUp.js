@@ -7,11 +7,11 @@ import TextError from "./TextError";
 
 // Initial Sign Up form values
 const initialValues = {
-  name: "",
-  username: "",
-  email: "",
-  password: "",
-  passwordconfirm: "",
+  name: "Test Name",
+  username: "tester",
+  email: "email@email.com",
+  password: "Mypass",
+  passwordconfirm: "Mypass",
   birthday: "",
 };
 
@@ -44,9 +44,11 @@ const validationSchema = Yup.object({
 const SignUp = (props) => {
   const [newUser, setNewUser] = useState(initialValues);
 
-  const onSubmit = (values) => {
+  const onSubmit = (values, onSubmitProps) => {
     console.log(values);
     setNewUser(values);
+    console.log(onSubmitProps);
+    onSubmitProps.setSubmitting(false);
   };
 
   // Return main sign up form component
@@ -61,6 +63,7 @@ const SignUp = (props) => {
           validateOnMount
         >
           {(formik) => {
+            console.log(formik);
             return (
               <Form>
                 <Field type="text" name="name" id="name" placeholder="Name" />

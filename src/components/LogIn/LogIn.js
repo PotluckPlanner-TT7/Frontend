@@ -31,7 +31,7 @@ const LogIn = (props) => {
     props.history.push("/home");
   }
 
-  const onSubmit = async (values, onSubmitProps) => {
+  const onSubmit = (values, onSubmitProps) => {
     setUser(values);
     console.log(values);
     // user should be replaced by values
@@ -51,6 +51,7 @@ const LogIn = (props) => {
           validateOnMount
         >
           {(formik) => {
+            console.log(formik);
             return (
               <Form>
                 <Field

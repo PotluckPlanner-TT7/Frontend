@@ -1,9 +1,9 @@
 import React from "react";
 import SignUpDiv from "./SignUpStyles";
-import { useState } from "react";
 import * as Yup from "yup";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import TextError from "./TextError";
+import axios from "axios";
 
 // Initial Sign Up form values
 const initialValues = {
@@ -12,7 +12,7 @@ const initialValues = {
   email: "",
   password: "",
   passwordconfirm: "",
-  birthday: "",
+  // birthday: "",
 };
 
 // Yup validation schema
@@ -37,16 +37,31 @@ const validationSchema = Yup.object({
   passwordconfirm: Yup.string()
     .oneOf([Yup.ref("password"), null], "Passwords must match")
     .required(),
-  birthday: Yup.string(),
+  // birthday: Yup.string(),
 });
 
 // Main React Component
 const SignUp = (props) => {
-  const [newUser, setNewUser] = useState(initialValues);
-  console.log(newUser);
+
   const onSubmit = (values) => {
-    console.log(values);
-    setNewUser(values);
+    const splitNameArr = values.name.split(" ");
+    const formattedUser = {
+      username: values.username,
+      password: values.password,
+      email: values.email,
+      firstname: splitNameArr[0],
+      lastname: splitNameArr[1],
+    };
+
+    axios
+      .post("https://potluckapi.herokuapp.com/api/signup", formattedUser)
+      .then((res) => {
+        props.history.push("/login");
+      })
+      .catch((err) => {
+        alert("something went wrong! It was probably us...");
+        console.log(err);
+      });
   };
 
   // Return main sign up form component
@@ -63,9 +78,9 @@ const SignUp = (props) => {
           {(formik) => {
             return (
               <Form>
+                {formik.isSubmitting ? <p>loading...</p> : null}
                 <Field type="text" name="name" id="name" placeholder="Name" />
                 <ErrorMessage name="name" component={TextError} />
-
                 <Field
                   type="text"
                   name="username"
@@ -73,7 +88,6 @@ const SignUp = (props) => {
                   placeholder="Username"
                 />
                 <ErrorMessage name="username" component={TextError} />
-
                 <Field
                   type="email"
                   name="email"
@@ -81,16 +95,14 @@ const SignUp = (props) => {
                   placeholder="email"
                 />
                 <ErrorMessage name="email" component={TextError} />
-
-                <Field
+                {/* <Field
                   type="date"
                   name="birthday"
                   id="birthday"
                   placeholder="Birthday: MM/DD/YYYY"
                 />
                 <label htmlFor="birthday"> Birthday </label>
-                <ErrorMessage name="birthday" />
-
+                <ErrorMessage name="birthday" /> */}
                 <Field
                   type="password"
                   name="password"
@@ -98,7 +110,6 @@ const SignUp = (props) => {
                   placeholder="password"
                 />
                 <ErrorMessage name="password" component={TextError} />
-
                 <Field
                   type="password"
                   name="passwordconfirm"
@@ -106,7 +117,6 @@ const SignUp = (props) => {
                   placeholder="Confirm your password"
                 />
                 <ErrorMessage name="passwordconfirm" component={TextError} />
-
                 <button
                   type="submit"
                   disabled={!formik.isValid || formik.isSubmitting}

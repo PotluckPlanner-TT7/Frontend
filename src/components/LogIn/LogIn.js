@@ -48,7 +48,7 @@ const LogIn = (props) => {
   // Return main LogIn form component
   return (
     <LogInDiv>
-      <h1> Login</h1>
+      <h1> 🍽 Login 🍽 </h1>
       <Card>
         <form onSubmit={formik.handleSubmit}>
           <TextField

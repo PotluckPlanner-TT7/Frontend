@@ -3,6 +3,7 @@ import styled from "styled-components";
 const SignUpDiv = styled.div`
   box-sizing: border-box;
   width: 55%;
+  max-width: 800px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -14,7 +15,6 @@ const SignUpDiv = styled.div`
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  /* border: 1px solid tomato; */
   border-radius: 10px;
 
   * {
@@ -27,7 +27,7 @@ const SignUpDiv = styled.div`
     margin-top: 2rem;
     text-shadow: 1px 1px black;
     color: white;
-    /* border: 1px solid tomato; */
+    text-align: center;
   }
 
   .formCont {
@@ -46,9 +46,6 @@ const SignUpDiv = styled.div`
 
   input {
     text-align: center;
-    /* height: 1.5rem; */
-    /* font-size: 1.3rem; */
-    margin-top: 2%;
   }
 
   .MuiTextField-root {

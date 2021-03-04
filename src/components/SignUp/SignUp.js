@@ -11,11 +11,11 @@ import SaveIcon from "@material-ui/icons/Save";
 
 // Initial Sign Up form values
 const initialValues = {
-  name: "Max H",
-  username: "mhhhhh",
-  email: "test@gmail.com",
-  password: "Mypass",
-  passwordconfirm: "Mypass",
+  name: "",
+  username: "",
+  email: "",
+  password: "",
+  passwordconfirm: "",
   // birthday: "",
 };
 

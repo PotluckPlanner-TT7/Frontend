@@ -25,6 +25,7 @@ const validationSchema = Yup.object({
 const LogIn = (props) => {
   const { setUserData } = props;
   const [user, setUser] = useState(initialValues);
+  console.log(user);
 
   // check how often this is running****
   if (props.isLoggedIn) {

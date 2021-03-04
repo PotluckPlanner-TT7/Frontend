@@ -43,7 +43,7 @@ const validationSchema = Yup.object({
 // Main React Component
 const SignUp = (props) => {
   const [newUser, setNewUser] = useState(initialValues);
-
+  console.log(newUser);
   const onSubmit = (values) => {
     console.log(values);
     setNewUser(values);

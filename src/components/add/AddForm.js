@@ -14,12 +14,12 @@ function AddForm(props) {
       potluck_description: "",
       potluck_date: "",
       potluck_time: "",
+      guests: [],
+      potluck_items: [],
     };
   const [formValues, setFormValues] = useState(initialValues);
-  console.log(userData);
-  console.log(formValues)
+
   const onChange = (e) => {
-    console.log(e.target.value)
     setFormValues({
       ...formValues,
       [e.target.name]: e.target.value,
@@ -28,7 +28,6 @@ function AddForm(props) {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(formValues);
     addPotLuck(formValues);
     history.push("/my-potlucks");
   }
@@ -81,7 +80,7 @@ function AddForm(props) {
           type="text"
           name="potluck_date"
           onChange={onChange}
-          placeholder="Date"
+          placeholder="MM/DD/YYYY"
           id="date"
           value={formValues.potluck_date}
         />
@@ -91,7 +90,7 @@ function AddForm(props) {
           type="text"
           name="potluck_time"
           onChange={onChange}
-          placeholder="Time"
+          placeholder="15:00-24hr format"
           id="time"
           value={formValues.potluck_time}
         />

@@ -8,13 +8,13 @@ const Home = (props) => {
   const { userData, getPotluckData, potluckData } = props;
   useEffect(() => {
     getPotluckData();
-  }, []);
+  }, [getPotluckData]);
   return (
     <HomeStyle>
       <h1>Welcome {userData.username}</h1>
       {/* all potlucks */}
       {potluckData.map((pot) => {
-        return <h1 key={pot.potluck_id}>{pot.potluck_title}</h1>;
+        return <h1 key={pot.potluck_description}>{pot.potluck_title}</h1>;
       })}
     </HomeStyle>
   );

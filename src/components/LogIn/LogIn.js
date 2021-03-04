@@ -14,7 +14,7 @@ const initialValues = {
   password: "",
 };
 
-// Yup validation schema
+// Yup validation schemagit m
 const validationSchema = Yup.object({
   email: Yup.string().email("Invalid email format").required("Required!"),
   password: Yup.string()

@@ -6,10 +6,6 @@ import axios from "axios";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Card from "@material-ui/core/Card";
-<<<<<<< HEAD
-=======
-// import Icon from "@material-ui/core/Icon";
->>>>>>> main
 import SaveIcon from "@material-ui/icons/Save";
 
 // Initial Sign Up form values

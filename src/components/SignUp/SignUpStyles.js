@@ -2,14 +2,31 @@ import styled from "styled-components";
 
 const SignUpDiv = styled.div`
   box-sizing: border-box;
-  width: 100%;
+  width: 55%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 1px solid black;
+  margin: 50px auto;
+  background: url("https://images.unsplash.com/photo-1609517405102-8e258999ef48?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=938&q=80")
+    no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  /* border: 1px solid tomato; */
+  border-radius: 10px;
 
   * {
+    /* border: 1px solid tomato; */
+  }
+
+  h1 {
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-weight: 400;
+    margin-top: 2rem;
+    text-shadow: 1px 1px black;
+    color: white;
     /* border: 1px solid tomato; */
   }
 
@@ -28,41 +45,25 @@ const SignUpDiv = styled.div`
   }
 
   input {
-    width: 400px;
     text-align: center;
-    border-radius: 6px;
-    border: 1px solid gray;
-    height: 2.3rem;
-    font-size: 1.3rem;
-    margin-top: 3%;
+    /* height: 1.5rem; */
+    /* font-size: 1.3rem; */
+    margin-top: 2%;
+  }
+
+  .MuiTextField-root {
+    margin-top: 1rem;
+  }
+
+  .MuiCard-root {
+    width: 100%;
   }
 
   button {
     padding: 0.3rem;
     margin: 1rem;
-    font-family: "Permanent Marker";
-    border-radius: 10%;
-    font-size: 1.5rem;
-    background-color: lightblue;
-    border: 2px solid lightblue;
-    margin-left: 1rem;
-    transition: 1s;
-    :hover {
-      background-color: green;
-      color: white;
-      border: 2px solid #49bf9d;
-    }
-    :disabled {
-      background-color: grey;
-      border: 2px solid white;
-      color: white;
-    }
-  }
-
-  .error {
-    color: red;
-    font-size: 0.7rem;
-    border: none;
+    border-radius: 6px;
+    margin: 3rem 0;
   }
 `;
 

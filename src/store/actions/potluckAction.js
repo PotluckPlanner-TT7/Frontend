@@ -30,13 +30,12 @@ export const getPotluckData = () => {
 };
 
 export const addPotLuck = (newPotLuck) => {
-  console.log("NewPotLuck", newPotLuck)
   return (dispatch) => {
     axiosWithAuth()
     .post('/potlucks', newPotLuck)
     .then((res) => {
-      console.log("Post request", res);
-      // dispatch({type: ADD, payload: res.data})
+      console.log("Post request", res.data);
+      dispatch({type: ADD, payload: res.data})
     })
     .catch((err) => {
       dispatch({ type: SET_ERROR, payload: err.message });
@@ -49,6 +48,7 @@ export const getOrganizerPotLuck = (userID) => {
     axiosWithAuth()
     .get(`/potlucks/organizer/${userID}`)
     .then((res) => {
+      console.log(res.data)
       dispatch({type: ORGANIZER_POTLUCK, payload: res.data})
     })
     .catch((err) => {

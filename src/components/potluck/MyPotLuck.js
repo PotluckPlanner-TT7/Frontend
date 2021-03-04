@@ -23,7 +23,8 @@ const MyPotLuck = (props) => {
     <MyPotLuckStyle>
       <button onClick={addNewPotLuck}>Add Potluck</button>
       {myPotLuckData.map((pot) => {
-        return <MyPotLuckCard key={pot.id} potluck={pot} />;
+        console.log(pot)
+        return <MyPotLuckCard key={pot.potluck_id} potluck={pot} />;
       })} 
     </MyPotLuckStyle>
   );

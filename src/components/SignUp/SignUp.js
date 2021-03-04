@@ -1,8 +1,9 @@
 import React from "react";
 import SignUpDiv from "./SignUpStyles";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import * as Yup from "yup";
-import { useFormikContext, Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import TextError from "./TextError";
 
 // Initial Sign Up form values
 const initialValues = {
@@ -32,25 +33,20 @@ const validationSchema = Yup.object({
   password: Yup.string()
     .required()
     .trim()
-    .min(6, "Passsword must be at least 6 characters"),
+    .min(6, "Password must be at least 6 characters"),
   passwordconfirm: Yup.string()
     .oneOf([Yup.ref("password"), null], "Passwords must match")
     .required(),
   birthday: Yup.string(),
 });
 
-// React Component!
+// Main React Component
 const SignUp = (props) => {
   const [newUser, setNewUser] = useState(initialValues);
-  const [disabled, setDisabled] = useState(true);
 
-  // Sets button to working or disabled based on inputs
-  const FormikValueGet = () => {
-    const { values } = useFormikContext();
-    useEffect(() => {
-      validationSchema.isValid(values).then((valid) => setDisabled(!valid));
-    }, [values]);
-    return null;
+  const onSubmit = (values) => {
+    console.log(values);
+    setNewUser(values);
   };
 
   // Return main sign up form component
@@ -60,60 +56,66 @@ const SignUp = (props) => {
       <div className="formCont">
         <Formik
           initialValues={initialValues}
-          onSubmit={(values, { resetForm }) => {
-            setNewUser(values);
-            console.log(values);
-            resetForm();
-          }}
+          onSubmit={onSubmit}
           validationSchema={validationSchema}
+          validateOnMount
         >
-          <Form>
-            <Field type="text" name="name" id="name" placeholder="Name" />
-            <ErrorMessage name="name" />
+          {(formik) => {
+            return (
+              <Form>
+                <Field type="text" name="name" id="name" placeholder="Name" />
+                <ErrorMessage name="name" component={TextError} />
 
-            <Field
-              type="text"
-              name="username"
-              id="username"
-              placeholder="Username"
+                <Field
+                  type="text"
+                  name="username"
+                  id="username"
+                  placeholder="Username"
+                />
+                <ErrorMessage name="username" component={TextError} />
 
-              // pattern="^[a-z0-9_-]{3,16}$"
-            />
-            <ErrorMessage name="username" />
+                <Field
+                  type="email"
+                  name="email"
+                  id="email"
+                  placeholder="email"
+                />
+                <ErrorMessage name="email" component={TextError} />
 
-            <Field type="email" name="email" id="email" placeholder="email" />
-            <ErrorMessage name="email" />
+                <Field
+                  type="date"
+                  name="birthday"
+                  id="birthday"
+                  placeholder="Birthday: MM/DD/YYYY"
+                />
+                <label htmlFor="birthday"> Birthday </label>
+                <ErrorMessage name="birthday" />
 
-            <Field
-              type="date"
-              name="birthday"
-              id="birthday"
-              placeholder="Birthday: MM/DD/YYYY"
-            />
-            <label htmlFor="birthday"> Birthday </label>
-            <ErrorMessage name="birthday" />
+                <Field
+                  type="password"
+                  name="password"
+                  id="password"
+                  placeholder="password"
+                />
+                <ErrorMessage name="password" component={TextError} />
 
-            <Field
-              type="password"
-              name="password"
-              id="password"
-              placeholder="password"
-            />
-            <ErrorMessage name="password" />
+                <Field
+                  type="password"
+                  name="passwordconfirm"
+                  id="passwordconfirm"
+                  placeholder="Confirm your password"
+                />
+                <ErrorMessage name="passwordconfirm" component={TextError} />
 
-            <Field
-              type="password"
-              name="passwordconfirm"
-              id="passwordconfirm"
-              placeholder="Please confirm your password"
-            />
-            <ErrorMessage name="passwordconfirm" />
-
-            <button type="submit" disabled={disabled}>
-              Submit
-            </button>
-            <FormikValueGet />
-          </Form>
+                <button
+                  type="submit"
+                  disabled={!formik.isValid || formik.isSubmitting}
+                >
+                  Submit
+                </button>
+              </Form>
+            );
+          }}
         </Formik>
       </div>
     </SignUpDiv>

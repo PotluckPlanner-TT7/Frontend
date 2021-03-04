@@ -1,9 +1,9 @@
 import React from "react";
 import LogInDiv from "./LogInStyles";
-import { useState, useEffect } from "react";
+import TextError from "../SignUp/TextError";
+import { useState } from "react";
 import * as Yup from "yup";
-
-import { useFormikContext, Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import { connect } from "react-redux";
 import { setUserData } from "./../../store/actions/loginActions";
 
@@ -21,24 +21,22 @@ const validationSchema = Yup.object({
     .min(6, "Password must be at least 6 characters"),
 });
 
-// React Component!
+// Main React Component
 const LogIn = (props) => {
   const { setUserData } = props;
-  const [User, setUser] = useState(initialValues);
-  const [disabled, setDisabled] = useState(true);
+  const [user, setUser] = useState(initialValues);
 
+  // check how often this is running****
   if (props.isLoggedIn) {
     props.history.push("/home");
   }
 
-  // Sets button to working or disabled based on inputs
-  const FormikValueGet = () => {
-    const { values } = useFormikContext();
-
-    useEffect(() => {
-      validationSchema.isValid(values).then((valid) => setDisabled(!valid));
-    }, [values]);
-    return null;
+  const onSubmit = async (values, onSubmitProps) => {
+    setUser(values);
+    console.log(values);
+    // user should be replaced by values
+    setUserData(values);
+    onSubmitProps.setSubmitting(false);
   };
 
   // Return main LogIn form component
@@ -48,29 +46,37 @@ const LogIn = (props) => {
       <div className="formCont">
         <Formik
           initialValues={initialValues}
-          onSubmit={(values, { resetForm }) => {
-            setUser(values);
-            setUserData(User);
-            resetForm();
-          }}
+          onSubmit={onSubmit}
           validationSchema={validationSchema}
+          validateOnMount
         >
-          <Form>
-            <Field type="email" name="email" id="email" placeholder="email" />
-            <ErrorMessage name="email" />
-            <Field
-              type="password"
-              name="password"
-              id="password"
-              placeholder="password"
-            />
-            <ErrorMessage name="password" />
+          {(formik) => {
+            return (
+              <Form>
+                <Field
+                  type="email"
+                  name="email"
+                  id="email"
+                  placeholder="email"
+                />
+                <ErrorMessage name="email" component={TextError} />
+                <Field
+                  type="password"
+                  name="password"
+                  id="password"
+                  placeholder="password"
+                />
+                <ErrorMessage name="password" component={TextError} />
 
-            <button type="submit" disabled={disabled}>
-              Submit{" "}
-            </button>
-            <FormikValueGet />
-          </Form>
+                <button
+                  type="submit"
+                  disabled={!formik.isValid || formik.isSubmitting}
+                >
+                  Submit
+                </button>
+              </Form>
+            );
+          }}
         </Formik>
       </div>
     </LogInDiv>

@@ -7,8 +7,7 @@ import {
 
 import MyPotLuckCard from "./MyPotLuckCard";
 
-import MyPotLuckStyle from "./MyPotLuckStyle";
-//      change^               change^
+import "./MyPotLuckStyle.css";
 
 const MyPotLuck = (props) => {
   const { myPotLuckData, userID, getOrganizerPotLuck } = props;
@@ -21,12 +20,12 @@ const MyPotLuck = (props) => {
   }, [getOrganizerPotLuck, userID]);
 
   return (
-    <MyPotLuckStyle>
+    <>
       <button onClick={addNewPotLuck}>Add Potluck</button>
       {myPotLuckData.map((pot) => {
-        return <MyPotLuckCard key={pot.potluck_description} potluck={pot} />;
+        return <MyPotLuckCard key={pot.potluck_title} potluck={pot} />;
       })}
-    </MyPotLuckStyle>
+    </>
   );
 };
 

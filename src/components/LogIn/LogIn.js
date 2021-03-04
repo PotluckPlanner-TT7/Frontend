@@ -35,9 +35,6 @@ const LogIn = (props) => {
   }
 
   const onSubmit = (values, onSubmitProps) => {
-    // setUser(values);
-    // user should be replaced by values
-    console.log(values);
     setUserData(values);
     onSubmitProps.setSubmitting(false);
   };

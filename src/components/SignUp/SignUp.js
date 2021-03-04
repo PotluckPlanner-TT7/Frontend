@@ -6,7 +6,6 @@ import axios from "axios";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Card from "@material-ui/core/Card";
-import Icon from "@material-ui/core/Icon";
 import SaveIcon from "@material-ui/icons/Save";
 
 // Initial Sign Up form values
@@ -132,7 +131,7 @@ const SignUp = (props) => {
             id="password"
             name="password"
             label="Password"
-            type="password"
+            type="new-password"
             value={formik.values.password}
             onChange={formik.handleChange}
             error={formik.touched.password && Boolean(formik.errors.password)}
@@ -144,7 +143,7 @@ const SignUp = (props) => {
             id="passwordconfirm"
             name="passwordconfirm"
             label="Confirm Password"
-            type="password"
+            type="new-password"
             value={formik.values.passwordconfirm}
             onChange={formik.handleChange}
             error={

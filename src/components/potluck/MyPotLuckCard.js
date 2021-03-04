@@ -1,13 +1,15 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
+import { axiosWithAuth } from "../../utils/axiosWithAuth";
 
 function MyPotLuckCard(props) {
   const {potluck} = props;
 
   const [ editing, setEditing ] = useState(false)
   const [ values, setValues ] = useState(potluck)
+  const { push } = useHistory()
 
   const changeHandler = (event) => {
-    console.log(event)
     setValues({
       ...values,
       [event.target.name]: event.target.value,
@@ -15,8 +17,21 @@ function MyPotLuckCard(props) {
   }
   const formSubmit = (event) => {
     event.preventDefault();
+
     if(editing){
       console.log("submit call fired baybeeee")
+      setEditing(!editing)
+
+      axiosWithAuth()
+      .put("NEED_ENDPOINT_URL", {potluck: values})
+      .catch(err => {
+        console.log(err)
+      });
+
+      push("/my-potlucks")
+      
+
+
     } else {
       console.log("editing in submit call evaluated to false")
     }
@@ -25,6 +40,8 @@ function MyPotLuckCard(props) {
 
   const buttonToggle = (event) => {
     setEditing(!editing)
+    console.log(potluck)
+
   }
 
   const form = 
@@ -77,8 +94,8 @@ function MyPotLuckCard(props) {
         onChange={changeHandler}
          />
       </label>
-
-      <button type="submit" onClick={formSubmit}>Save pot</button>
+      <br />
+      <button type="submit" onClick={formSubmit}>Submit ze Potluck</button>
       </li>
     </form>
 
@@ -98,7 +115,7 @@ function MyPotLuckCard(props) {
 
   return (
     <div>
-      {editing ? null : <button type="submit" onClick={buttonToggle}>Submit ze Pot</button>}
+      {editing ? <p>You are currently editing the potluck. </p> : <button type="submit" onClick={buttonToggle}>Edit ze Potluck</button>}
 
       {editing ? form : thisPotluck }
     

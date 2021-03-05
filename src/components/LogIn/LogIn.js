@@ -10,8 +10,8 @@ import Card from "@material-ui/core/Card";
 
 // Initial Sign Up form values
 const initialValues = {
-  email: "",
-  password: "",
+  email: "testing2@testing.com",
+  password: "password",
 };
 
 // Yup validation schema

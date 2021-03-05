@@ -65,7 +65,6 @@ export const potluckReducer = (state = initialValue, action) => {
             }
           }),
         ],
-        // myPotLuckData: action.payload,
       };
     case SET_ERROR:
       return {

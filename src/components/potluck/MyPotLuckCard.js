@@ -27,12 +27,7 @@ function MyPotLuckCard(props) {
     console.log(potluck.id);
 
     axiosWithAuth()
-      .put(
-        `https://potluckapi.herokuapp.com/api/potluck/${potluck.potluck_id}`,
-        {
-          potluck: values,
-        }
-      )
+      .put(`/potlucks/${potluck.potluck_id}`, values)
       .then((res) => {
         console.log(res);
         updatePotluckData(res.data);

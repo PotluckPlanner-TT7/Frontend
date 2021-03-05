@@ -10,11 +10,11 @@ import Card from "@material-ui/core/Card";
 
 // Initial Sign Up form values
 const initialValues = {
-  email: "",
-  password: "",
+  email: "testing2@testing.com",
+  password: "password",
 };
 
-// Yup validation schemagit m
+// Yup validation schema
 const validationSchema = Yup.object({
   email: Yup.string().email("Invalid email format").required("Required!"),
   password: Yup.string()
@@ -25,16 +25,13 @@ const validationSchema = Yup.object({
 // Main React Component
 const LogIn = (props) => {
   const { setUserData } = props;
-  // const [user, setUser] = useState(initialValues);
 
-  // check how often this is running****
   if (props.isLoggedIn) {
     props.history.push("/home");
   }
 
-  const onSubmit = (values, onSubmitProps) => {
+  const onSubmit = (values) => {
     setUserData(values);
-    onSubmitProps.setSubmitting(false);
   };
 
   const formik = useFormik({
@@ -48,6 +45,7 @@ const LogIn = (props) => {
     <LogInDiv>
       <h1> 🍽 Login 🍽 </h1>
       <Card>
+        {formik.isSubmitting ? <p className="loading">Loading...</p> : null}
         <form onSubmit={formik.handleSubmit}>
           <TextField
             fullWidth
@@ -66,7 +64,8 @@ const LogIn = (props) => {
             id="password"
             name="password"
             label="Password"
-            type="current-password"
+            type="password"
+            autoComplete="current-password"
             value={formik.values.password}
             onChange={formik.handleChange}
             error={formik.touched.password && Boolean(formik.errors.password)}

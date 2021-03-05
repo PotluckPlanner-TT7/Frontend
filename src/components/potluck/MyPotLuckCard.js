@@ -6,6 +6,7 @@ import {connect} from "react-redux"
 
 function MyPotLuckCard(props) {
   const {potluck} = props;
+  console.log(props)
 
   const [ editing, setEditing ] = useState(false)
   const [ values, setValues ] = useState(potluck)
@@ -17,27 +18,26 @@ function MyPotLuckCard(props) {
       [event.target.name]: event.target.value,
     })
   }
+
   const formSubmit = (event) => {
     event.preventDefault();
-
-    if(editing){
-      console.log("submit call fired baybeeee")
-      setEditing(!editing)
+    props.banana(values)
+    console.log(potluck.id)
 
       axiosWithAuth()
-      .put(`https://potluckapi.herokuapp.com/api/potlucks/${potluck.potluck_id}`, {potluck: values})
-      .then()
+      .put(`https://potluckapi.herokuapp.com/api/potlucks/${potluck.id}`, {potluck: values})
+      .then(res => {
+        console.log(res)
+        setEditing(!editing)
+        //push("/my-potlucks")
+      })
       .catch(err => {
         console.log(err)
       });
-
-      push("/my-potlucks")
       
 
 
-    } else {
-      console.log("editing in submit call evaluated to false")
-    }
+
     // NOTE TO TEAM - WE NEED THE DATA TO SEND ON THIS CALL.
   };
 
@@ -63,7 +63,7 @@ function MyPotLuckCard(props) {
         <input
         type="text"
         name="description"
-        value={potluck.myPotLuckData[0].description}
+        value={values.description}
         onChange={changeHandler}
          />
       </label>
@@ -98,23 +98,23 @@ function MyPotLuckCard(props) {
          />
       </label>
       <br />
-      <button type="submit" onClick={formSubmit}>Submit ze Potluck</button>
+      <button type="submit">Submit ze Potluck</button>
       </li>
     </form>
 
 
     const thisPotluck = 
     <ul>
-    <li>{editing ? <input /> : <p>{potluck.myPotLuckData[0].title}</p>}</li>
-    <li>{potluck.myPotLuckData[0].description}</li>
-    <li>{potluck.myPotLuckData[0].date}</li>
-    <li>{potluck.myPotLuckData[0].creator}</li>
-    <li>{potluck.myPotLuckData[0].location}</li>
-      {/* <ul>
+    <li>{editing ? <input /> : <p>{props.potluck.title}</p>}</li>
+    <li>{props.potluck.description}</li>
+    <li>{props.potluck.date}</li>
+    <li>{props.potluck.creator}</li>
+    <li>{props.potluck.location}</li>
+      <ul>
         {potluck.guests.map(guest => {
         return (<li>{guest}</li>)
         })}
-      </ul> */}
+      </ul>
     </ul>
 
   return (
@@ -130,8 +130,16 @@ function MyPotLuckCard(props) {
 
 const mapStateToProps = (state) => {
   return {
-    ...state,
+    singleState: {...state}
+
   }
 }
-export default connect(mapStateToProps)(MyPotLuckCard);
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    banana: (potluck) => 
+    {dispatch(updatePotluckData(potluck))},
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(MyPotLuckCard);
 

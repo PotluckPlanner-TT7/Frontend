@@ -31,6 +31,7 @@ const initialValue = {
 };
 
 export const potluckReducer = (state = initialValue, action) => {
+  console.log(action)
   switch (action.type) {
     case LOAD_POTLUCKS:
       return {

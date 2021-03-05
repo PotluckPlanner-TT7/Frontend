@@ -1,7 +1,5 @@
 import React from "react";
 import LogInDiv from "./LogInStyles";
-// import TextError from "../SignUp/TextError";
-// import { useState } from "react";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { connect } from "react-redux";
@@ -12,11 +10,11 @@ import Card from "@material-ui/core/Card";
 
 // Initial Sign Up form values
 const initialValues = {
-  email: "testing1@testing.com",
-  password: "password",
+  email: "",
+  password: "",
 };
 
-// Yup validation schema
+// Yup validation schemagit m
 const validationSchema = Yup.object({
   email: Yup.string().email("Invalid email format").required("Required!"),
   password: Yup.string()
@@ -48,7 +46,7 @@ const LogIn = (props) => {
   // Return main LogIn form component
   return (
     <LogInDiv>
-      <h1> Login</h1>
+      <h1> 🍽 Login 🍽 </h1>
       <Card>
         <form onSubmit={formik.handleSubmit}>
           <TextField
@@ -68,7 +66,7 @@ const LogIn = (props) => {
             id="password"
             name="password"
             label="Password"
-            type="password"
+            type="current-password"
             value={formik.values.password}
             onChange={formik.handleChange}
             error={formik.touched.password && Boolean(formik.errors.password)}

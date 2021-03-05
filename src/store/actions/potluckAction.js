@@ -5,6 +5,7 @@ export const SET_POTLUCKS_SUCCESS = "SET_POTLUCKS_SUCCESS";
 export const SET_ERROR = "SET_ERROR";
 export const ADD = "ADD";
 export const ORGANIZER_POTLUCK = "ORGANIZER_POTLUCK";
+export const UPDATE_POTLUCK = "UPDATE_POTLUCK";
 
 export const getPotluckData = () => {
   return (dispatch) => {
@@ -54,4 +55,7 @@ export const getOrganizerPotLuck = (userID) => {
         dispatch({ type: SET_ERROR, payload: err.message });
       });
   };
+};
+export const updatePotluckData = (potluck) => {
+  return { type: UPDATE_POTLUCK, payload: potluck };
 };

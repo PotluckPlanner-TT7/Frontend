@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { axiosWithAuth } from "../../utils/axiosWithAuth";
+import { updatePotluckData } from "../../store/actions/potluckAction";
+import { connect } from "react-redux";
 
 import Card from "@material-ui/core/Card";
-import { connect } from "react-redux";
 
 function MyPotLuckCard(props) {
   const { potluck, userData } = props;
+  console.log(props);
 
   const [editing, setEditing] = useState(false);
   const [values, setValues] = useState(potluck);
@@ -18,23 +20,28 @@ function MyPotLuckCard(props) {
       [event.target.name]: event.target.value,
     });
   };
+
   const formSubmit = (event) => {
     event.preventDefault();
+    props.banana(values);
+    console.log(potluck.id);
 
-    if (editing) {
-      console.log("submit call fired baybeeee");
-      setEditing(!editing);
+    axiosWithAuth()
+      .put(
+        `https://potluckapi.herokuapp.com/api/potluck/${potluck.potluck_id}`,
+        {
+          potluck: values,
+        }
+      )
+      .then((res) => {
+        console.log(res);
+        updatePotluckData(res.data);
+        setEditing(!editing);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
-      axiosWithAuth()
-        .put("NEED_ENDPOINT_URL", { potluck: values })
-        .catch((err) => {
-          console.log(err);
-        });
-
-      push("/my-potlucks");
-    } else {
-      console.log("editing in submit call evaluated to false");
-    }
     // NOTE TO TEAM - WE NEED THE DATA TO SEND ON THIS CALL.
   };
 
@@ -140,7 +147,19 @@ function MyPotLuckCard(props) {
     </div>
   );
 }
+
 const mapStateToProps = (state) => {
-  return { userData: state.login.userData };
+  return {
+    singleState: { ...state },
+    userData: state.login.userData,
+  };
 };
-export default connect(mapStateToProps)(MyPotLuckCard);
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    banana: (potluck) => {
+      dispatch(updatePotluckData(potluck));
+    },
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(MyPotLuckCard);

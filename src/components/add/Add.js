@@ -1,19 +1,13 @@
 import React from "react";
-import { connect } from "react-redux";
-// import { startLogin, startSuccess, startFail } from '../../store/actions/loginActions';
-
+// import { connect } from "react-redux";
+import AddForm from "./AddForm";
 import AddStyles from "./AddStyles";
-//      change^               change^
 
 const Add = (props) => {
-  console.log(props);
-  //   change^^
   return (
     <AddStyles>
-      {/* change^^ */}
-      test from Component.js
+      <AddForm />
     </AddStyles>
-    // change^^
   );
 };
 

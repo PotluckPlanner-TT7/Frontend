@@ -2,126 +2,145 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { axiosWithAuth } from "../../utils/axiosWithAuth";
 
-function MyPotLuckCard(props) {
-  const {potluck} = props;
+import Card from "@material-ui/core/Card";
+import { connect } from "react-redux";
 
-  const [ editing, setEditing ] = useState(false)
-  const [ values, setValues ] = useState(potluck)
-  const { push } = useHistory()
+function MyPotLuckCard(props) {
+  const { potluck, userData } = props;
+
+  const [editing, setEditing] = useState(false);
+  const [values, setValues] = useState(potluck);
+  const { push } = useHistory();
 
   const changeHandler = (event) => {
     setValues({
       ...values,
       [event.target.name]: event.target.value,
-    })
-  }
+    });
+  };
   const formSubmit = (event) => {
     event.preventDefault();
 
-    if(editing){
-      console.log("submit call fired baybeeee")
-      setEditing(!editing)
+    if (editing) {
+      console.log("submit call fired baybeeee");
+      setEditing(!editing);
 
       axiosWithAuth()
-      .put("NEED_ENDPOINT_URL", {potluck: values})
-      .catch(err => {
-        console.log(err)
-      });
+        .put("NEED_ENDPOINT_URL", { potluck: values })
+        .catch((err) => {
+          console.log(err);
+        });
 
-      push("/my-potlucks")
-      
-
-
+      push("/my-potlucks");
     } else {
-      console.log("editing in submit call evaluated to false")
+      console.log("editing in submit call evaluated to false");
     }
     // NOTE TO TEAM - WE NEED THE DATA TO SEND ON THIS CALL.
   };
 
   const buttonToggle = (event) => {
-    setEditing(!editing)
-    console.log(potluck)
+    setEditing(!editing);
+    console.log(potluck);
+  };
 
-  }
-
-  const form = 
-  <form onSubmit={formSubmit}>
-      <li><label> Title
-        <input
-        type="text"
-        name="title"
-        value={values.title}
-        onChange={changeHandler}
-         />
-      </label>
+  const form = (
+    <form onSubmit={formSubmit}>
+      <li>
+        <label>
+          {" "}
+          Title
+          <input
+            type="text"
+            name="title"
+            value={values.potluck_title}
+            onChange={changeHandler}
+          />
+        </label>
       </li>
       <li>
-      <label> Description
-        <input
-        type="text"
-        name="description"
-        value={values.description}
-        onChange={changeHandler}
-         />
-      </label>
+        <label>
+          {" "}
+          Description
+          <input
+            type="text"
+            name="description"
+            value={values.potluck_description}
+            onChange={changeHandler}
+          />
+        </label>
       </li>
       <li>
-      <label> Date
-        <input
-        type="text"
-        name="date"
-        value={values.date}
-        onChange={changeHandler}
-         />
-      </label>
+        <label>
+          {" "}
+          Date
+          <input
+            type="text"
+            name="date"
+            value={values.potluck_date}
+            onChange={changeHandler}
+          />
+        </label>
       </li>
       <li>
-      <label> Creator
-        <input
-        type="text"
-        name="creator"
-        value={values.creator}
-        onChange={changeHandler}
-         />
-      </label>
+        <label>
+          {" "}
+          Creator
+          <input
+            type="text"
+            name="creator"
+            value={userData.username}
+            onChange={changeHandler}
+          />
+        </label>
       </li>
       <li>
-      <label> Location
-        <input
-        type="text"
-        name="location"
-        value={values.location}
-        onChange={changeHandler}
-         />
-      </label>
-      <br />
-      <button type="submit" onClick={formSubmit}>Submit ze Potluck</button>
+        <label>
+          {" "}
+          Location
+          <input
+            type="text"
+            name="location"
+            value={values.potluck_location}
+            onChange={changeHandler}
+          />
+        </label>
+        <br />
+        <button type="submit" onClick={formSubmit}>
+          Submit ze Potluck
+        </button>
       </li>
     </form>
+  );
 
-    const thisPotluck = 
-    <ul>
-    <li>{editing ? <input /> : <p>{potluck.title}</p>}</li>
-    <li>{potluck.description}</li>
-    <li>{potluck.date}</li>
-    <li>{potluck.creator}</li>
-    <li>{potluck.location}</li>
-      <ul>
-        {potluck.guests.map(guest => {
-        return (<li>{guest}</li>)
-        })}
-      </ul>
-    </ul>
+  const thisPotluck = (
+    <Card>
+      {editing ? <input /> : <h1>{potluck.potluck_title}</h1>}
+      <p>{potluck.potluck_description}</p>
+      <p>{potluck.potluck_date}</p>
+      <p>{potluck.potluck_creator}</p>
+      <p>{potluck.potluck_location}</p>
+
+      {/* {potluck.guests.map((guest) => {
+        return <p>{guest}</p>;
+      })} */}
+    </Card>
+  );
 
   return (
     <div>
-      {editing ? <p>You are currently editing the potluck. </p> : <button type="submit" onClick={buttonToggle}>Edit ze Potluck</button>}
+      {editing ? (
+        <p>You are currently editing the potluck. </p>
+      ) : (
+        <button type="submit" onClick={buttonToggle}>
+          Edit ze Potluck
+        </button>
+      )}
 
-      {editing ? form : thisPotluck }
-    
+      {editing ? form : thisPotluck}
     </div>
-
   );
 }
-
-export default MyPotLuckCard;
+const mapStateToProps = (state) => {
+  return { userData: state.login.userData };
+};
+export default connect(mapStateToProps)(MyPotLuckCard);

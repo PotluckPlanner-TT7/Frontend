@@ -15,7 +15,7 @@ const initialValues = {
   email: "",
   password: "",
   passwordconfirm: "",
-  // birthday: "",
+  birthday: "",
 };
 
 // Yup validation schema
@@ -40,7 +40,7 @@ const validationSchema = Yup.object({
   passwordconfirm: Yup.string()
     .oneOf([Yup.ref("password"), null], "Passwords must match")
     .required(),
-  // birthday: Yup.string(),
+  birthday: Yup.string(),
 });
 
 // Main React Component
@@ -115,7 +115,7 @@ const SignUp = (props) => {
             helperText={formik.touched.email && formik.errors.email}
           />
 
-          {/* <TextField
+          <TextField
             fullWidth
             id="birthday"
             name="birthday"
@@ -125,13 +125,14 @@ const SignUp = (props) => {
             onChange={formik.handleChange}
             error={formik.touched.birthday && Boolean(formik.errors.birthday)}
             helperText={formik.touched.birthday && formik.errors.birthday}
-          /> */}
+          />
           <TextField
             fullWidth
             id="password"
             name="password"
             label="Password"
-            type="new-password"
+            type="password"
+            autoComplete="new-password"
             value={formik.values.password}
             onChange={formik.handleChange}
             error={formik.touched.password && Boolean(formik.errors.password)}
@@ -143,7 +144,8 @@ const SignUp = (props) => {
             id="passwordconfirm"
             name="passwordconfirm"
             label="Confirm Password"
-            type="new-password"
+            type="password"
+            autoComplete="new-password"
             value={formik.values.passwordconfirm}
             onChange={formik.handleChange}
             error={

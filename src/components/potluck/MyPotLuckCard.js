@@ -25,11 +25,11 @@ function MyPotLuckCard(props) {
     console.log(potluck.id)
 
       axiosWithAuth()
-      .put(`https://potluckapi.herokuapp.com/api/potlucks/${potluck.id}`, {potluck: values})
+      .put(`https://potluckapi.herokuapp.com/api/potluck/${potluck.id}`, {potluck: values})
       .then(res => {
         console.log(res)
         setEditing(!editing)
-        //push("/my-potlucks")
+
       })
       .catch(err => {
         console.log(err)

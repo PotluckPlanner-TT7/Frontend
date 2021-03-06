@@ -83,8 +83,7 @@ function AddForm(props) {
         <br />
         <label htmlFor="date">Date</label>
         <TextField
-          fullWidth
-          type="text"
+          type="date"
           name="potluck_date"
           onChange={onChange}
           placeholder="MM/DD/YYYY"
@@ -94,8 +93,7 @@ function AddForm(props) {
         <br />
         <label htmlFor="time">Time</label>
         <TextField
-          fullWidth
-          type="text"
+          type="time"
           name="potluck_time"
           onChange={onChange}
           placeholder="15:00-24hr format"
@@ -103,7 +101,7 @@ function AddForm(props) {
           value={formValues.potluck_time}
         />
         <br />
-        <Button type="submit" color="secondary" variant="contained" fullWidth>
+        <Button type="submit" color="secondary" variant="contained">
           Submit
         </Button>
       </form>

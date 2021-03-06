@@ -48,7 +48,6 @@ export const getOrganizerPotLuck = (userID) => {
     axiosWithAuth()
       .get(`/potlucks/organizer/${userID}`)
       .then((res) => {
-        console.log(res.data);
         dispatch({ type: ORGANIZER_POTLUCK, payload: res.data });
       })
       .catch((err) => {

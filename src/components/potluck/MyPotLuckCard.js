@@ -7,7 +7,6 @@ import Card from "@material-ui/core/Card";
 
 function MyPotLuckCard(props) {
   const { potluck, userData, updatePotluckData } = props;
-  console.log(potluck);
 
   const [editing, setEditing] = useState(false);
   const [values, setValues] = useState(potluck);

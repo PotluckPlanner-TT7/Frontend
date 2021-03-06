@@ -6,17 +6,16 @@ import axios from "axios";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Card from "@material-ui/core/Card";
-// import Icon from "@material-ui/core/Icon";
 import SaveIcon from "@material-ui/icons/Save";
 
 // Initial Sign Up form values
 const initialValues = {
-  name: "Max H",
-  username: "mhhhhh",
-  email: "test@gmail.com",
-  password: "Mypass",
-  passwordconfirm: "Mypass",
-  // birthday: "",
+  name: "",
+  username: "",
+  email: "",
+  password: "",
+  passwordconfirm: "",
+  birthday: "",
 };
 
 // Yup validation schema
@@ -41,7 +40,7 @@ const validationSchema = Yup.object({
   passwordconfirm: Yup.string()
     .oneOf([Yup.ref("password"), null], "Passwords must match")
     .required(),
-  // birthday: Yup.string(),
+  birthday: Yup.string(),
 });
 
 // Main React Component
@@ -116,7 +115,7 @@ const SignUp = (props) => {
             helperText={formik.touched.email && formik.errors.email}
           />
 
-          {/* <TextField
+          <TextField
             fullWidth
             id="birthday"
             name="birthday"
@@ -126,13 +125,14 @@ const SignUp = (props) => {
             onChange={formik.handleChange}
             error={formik.touched.birthday && Boolean(formik.errors.birthday)}
             helperText={formik.touched.birthday && formik.errors.birthday}
-          /> */}
+          />
           <TextField
             fullWidth
             id="password"
             name="password"
             label="Password"
             type="password"
+            autoComplete="new-password"
             value={formik.values.password}
             onChange={formik.handleChange}
             error={formik.touched.password && Boolean(formik.errors.password)}
@@ -145,6 +145,7 @@ const SignUp = (props) => {
             name="passwordconfirm"
             label="Confirm Password"
             type="password"
+            autoComplete="new-password"
             value={formik.values.passwordconfirm}
             onChange={formik.handleChange}
             error={

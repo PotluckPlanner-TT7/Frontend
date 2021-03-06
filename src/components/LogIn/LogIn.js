@@ -1,7 +1,5 @@
 import React from "react";
 import LogInDiv from "./LogInStyles";
-// import TextError from "../SignUp/TextError";
-// import { useState } from "react";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { connect } from "react-redux";
@@ -12,7 +10,7 @@ import Card from "@material-ui/core/Card";
 
 // Initial Sign Up form values
 const initialValues = {
-  email: "testing1@testing.com",
+  email: "testing2@testing.com",
   password: "password",
 };
 
@@ -27,16 +25,13 @@ const validationSchema = Yup.object({
 // Main React Component
 const LogIn = (props) => {
   const { setUserData } = props;
-  // const [user, setUser] = useState(initialValues);
 
-  // check how often this is running****
   if (props.isLoggedIn) {
     props.history.push("/home");
   }
 
-  const onSubmit = (values, onSubmitProps) => {
+  const onSubmit = (values) => {
     setUserData(values);
-    onSubmitProps.setSubmitting(false);
   };
 
   const formik = useFormik({
@@ -48,8 +43,9 @@ const LogIn = (props) => {
   // Return main LogIn form component
   return (
     <LogInDiv>
-      <h1> Login</h1>
+      <h1> 🍽 Login 🍽 </h1>
       <Card>
+        {formik.isSubmitting ? <p className="loading">Loading...</p> : null}
         <form onSubmit={formik.handleSubmit}>
           <TextField
             fullWidth
@@ -69,6 +65,7 @@ const LogIn = (props) => {
             name="password"
             label="Password"
             type="password"
+            autoComplete="current-password"
             value={formik.values.password}
             onChange={formik.handleChange}
             error={formik.touched.password && Boolean(formik.errors.password)}

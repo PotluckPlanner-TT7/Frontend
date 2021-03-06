@@ -31,6 +31,10 @@ const LogInDiv = styled.div`
     text-align: center;
   }
 
+  .loading {
+    text-align: center;
+  }
+
   .formCont {
     width: 80%;
     border-radius: 100px;

@@ -56,15 +56,16 @@ export const potluckReducer = (state = initialValue, action) => {
     case UPDATE_POTLUCK:
       return {
         ...state,
-        myPotLuckData: [
-          ...state.myPotLuckData.map((potluck) => {
-            if (potluck.id === action.payload.id) {
-              return action.payload;
-            } else {
-              return potluck;
-            }
-          }),
-        ],
+        // myPotLuckData: [
+        //   ...state.myPotLuckData.map((potluck) => {
+        //     if (potluck.id === action.payload.id) {
+        //       return action.payload;
+        //     } else {
+        //       return potluck;
+        //     }
+        //   }),
+        // ],
+        myPotLuckData: action.payload,
       };
     case SET_ERROR:
       return {

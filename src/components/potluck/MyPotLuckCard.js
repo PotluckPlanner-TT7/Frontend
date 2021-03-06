@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
 import { axiosWithAuth } from "../../utils/axiosWithAuth";
 import { updatePotluckData } from "../../store/actions/potluckAction";
 import { connect } from "react-redux";
@@ -7,12 +6,11 @@ import { connect } from "react-redux";
 import Card from "@material-ui/core/Card";
 
 function MyPotLuckCard(props) {
-  const { potluck, userData } = props;
-  console.log(props);
+  const { potluck, userData, updatePotluckData } = props;
+  console.log(potluck);
 
   const [editing, setEditing] = useState(false);
   const [values, setValues] = useState(potluck);
-  const { push } = useHistory();
 
   const changeHandler = (event) => {
     setValues({
@@ -23,13 +21,11 @@ function MyPotLuckCard(props) {
 
   const formSubmit = (event) => {
     event.preventDefault();
-    props.banana(values);
-    console.log(potluck.id);
 
     axiosWithAuth()
       .put(`/potlucks/${potluck.potluck_id}`, values)
       .then((res) => {
-        console.log(res);
+        console.log(res.data);
         updatePotluckData(res.data);
         setEditing(!editing);
       })
@@ -42,7 +38,6 @@ function MyPotLuckCard(props) {
 
   const buttonToggle = (event) => {
     setEditing(!editing);
-    console.log(potluck);
   };
 
   const form = (
@@ -53,7 +48,7 @@ function MyPotLuckCard(props) {
           Title
           <input
             type="text"
-            name="title"
+            name="potluck_title"
             value={values.potluck_title}
             onChange={changeHandler}
           />
@@ -65,7 +60,7 @@ function MyPotLuckCard(props) {
           Description
           <input
             type="text"
-            name="description"
+            name="potluck_description"
             value={values.potluck_description}
             onChange={changeHandler}
           />
@@ -77,7 +72,7 @@ function MyPotLuckCard(props) {
           Date
           <input
             type="text"
-            name="date"
+            name="potluck_date"
             value={values.potluck_date}
             onChange={changeHandler}
           />
@@ -89,7 +84,7 @@ function MyPotLuckCard(props) {
           Creator
           <input
             type="text"
-            name="creator"
+            name="username"
             value={userData.username}
             onChange={changeHandler}
           />
@@ -101,7 +96,7 @@ function MyPotLuckCard(props) {
           Location
           <input
             type="text"
-            name="location"
+            name="potluck_location"
             value={values.potluck_location}
             onChange={changeHandler}
           />
@@ -147,14 +142,15 @@ const mapStateToProps = (state) => {
   return {
     singleState: { ...state },
     userData: state.login.userData,
+    // potluck: state.potluck.myPotLuckData,
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    banana: (potluck) => {
-      dispatch(updatePotluckData(potluck));
-    },
-  };
-};
-export default connect(mapStateToProps, mapDispatchToProps)(MyPotLuckCard);
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     banana: (potluck) => {
+//       dispatch(updatePotluckData(potluck));
+//     },
+//   };
+// };
+export default connect(mapStateToProps, { updatePotluckData })(MyPotLuckCard);

@@ -3,37 +3,43 @@ import {
   SET_POTLUCKS_SUCCESS,
   SET_ERROR,
   ADD,
-  ORGANIZER_POTLUCK
+  ORGANIZER_POTLUCK,
+  UPDATE_POTLUCK,
 } from "./../actions/potluckAction";
 
 const initialValue = {
-  potluckData: [{
-    organizer_id: "",
-    potluck_title: "something",
-    potluck_date: "",
-    potluck_time: "",
-    potluck_location: "place",
-    potluck_description: "some place somewhere",
-    // guests: ["me", "myself", "I"],
-    // creator: " ",
-    // itemsRequested: []
-  }],
-  myPotLuckData: [{
-    organizer_id: "",
-    potluck_title: "something",
-    potluck_date: "03/04/2021",
-    potluck_time: "15:00",
-    potluck_location: "place",
-    potluck_description: "some place somewhere",
-    // guests: ["me", "myself", "I"],
-    // creator: " ",
-    // itemsRequested: []
-  }],
+  potluckData: [
+    {
+      organizer_id: "",
+      potluck_title: "something",
+      potluck_date: "",
+      potluck_time: "",
+      potluck_location: "place",
+      potluck_description: "some place somewhere",
+      // guests: ["me", "myself", "I"],
+      // creator: " ",
+      // itemsRequested: []
+    },
+  ],
+  myPotLuckData: [
+    {
+      organizer_id: "",
+      potluck_title: "something",
+      potluck_date: "03/04/2021",
+      potluck_time: "15:00",
+      potluck_location: "place",
+      potluck_description: "some place somewhere",
+      // guests: ["me", "myself", "I"],
+      // creator: " ",
+      // itemsRequested: []
+    },
+  ],
   error: "",
   loadingPotluckData: false,
 };
 
 export const potluckReducer = (state = initialValue, action) => {
+  console.log(action);
   switch (action.type) {
     case LOAD_POTLUCKS:
       return {
@@ -47,6 +53,20 @@ export const potluckReducer = (state = initialValue, action) => {
         error: "",
         loadingPotluckData: false,
       };
+    case UPDATE_POTLUCK:
+      return {
+        ...state,
+        // myPotLuckData: [
+        //   ...state.myPotLuckData.map((potluck) => {
+        //     if (potluck.id === action.payload.id) {
+        //       return action.payload;
+        //     } else {
+        //       return potluck;
+        //     }
+        //   }),
+        // ],
+        myPotLuckData: action.payload,
+      };
     case SET_ERROR:
       return {
         ...state,
@@ -56,17 +76,17 @@ export const potluckReducer = (state = initialValue, action) => {
     case ADD:
       return {
         ...state,
-        myPotLuckData: [...state.myPotLuckData, action.payload ],
+        myPotLuckData: [...state.myPotLuckData, action.payload],
         error: "",
         loadingPotluckData: false,
-      }
+      };
     case ORGANIZER_POTLUCK:
       return {
         ...state,
         myPotLuckData: action.payload,
         error: "",
         loadingPotLuckData: false,
-      }
+      };
     default:
       return state;
   }
